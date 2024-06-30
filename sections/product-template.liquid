@@ -161,19 +161,17 @@
                     itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
                 {{ current_variant.price | money }}
               </span>
-              <span class="product-price__amount">
-                <div class="product-price__amount">
-                  {% if current_variant.available %}
-                    <span class="important-text">
-                      {% if current_variant.title contains "seguidores" %}
-                        {{ current_variant.title | remove: "seguidores" }}
-                      {% else %}
-                        1
-                      {% endif %}
-                    </span>
-                  {% endif %}
-                </div>
-              </span>
+              <div class="product-price__amount">
+                {% if current_variant.available %}
+                  <span class="important-text">
+                    {% if current_variant.option1 %}
+                      {{ current_variant.option1 }} seguidores
+                    {% else %}
+                      1 seguidor
+                    {% endif %}
+                  </span>
+                {% endif %}
+              </div>
               {% if section.settings.show_saved_amount %}
               <span class="save_discount_pro hide">
               </span>
