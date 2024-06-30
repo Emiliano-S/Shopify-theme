@@ -2712,8 +2712,23 @@ hr {
 .product-price__price {
   display: inline-block;
   color: #454545;
-  font-size: 80px;
   font-family: 'Poppins', sans-serif;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  .product-price{
+    font-size: 80px;
+  }
+  .product-price__amount{
+    display: flex;
+    flex-direction: columns;
+    justify-content: start;
+    align-items: center;
+    font-size: 40px;
+    .important-text{
+      color: #E738C2 !important;
+    }
+  }
 }
 
 .product-price__sale {

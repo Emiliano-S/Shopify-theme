@@ -116,9 +116,13 @@
             <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
             <s id="ComparePrice-{{ section.id }}">{{ current_variant.compare_at_price | money }}</s>
             <span class="product-price__price product-price__price-{{ section.id }} product-price__sale product-price__sale--single">
-              <span id="ProductPrice-{{ section.id }}"
+              <span class="product-price" id="ProductPrice-{{ section.id }}"
                     itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
                 {{ current_variant.price | money	 }}
+              </span>
+              <span class="product-price__amount">
+                x 500
+                <span class="important-text">seguidores</span>
               </span>
               {% if section.settings.show_saved_amount %}
               <!-- Dscount price in percentage  -->
