@@ -162,8 +162,17 @@
                 {{ current_variant.price | money }}
               </span>
               <span class="product-price__amount">
-                      {{ section.settings.show_quantity_selector }}
-                <span class="important-text">seguidores</span>
+                <div class="product-price__amount">
+                  {% if current_variant.available %}
+                    <span class="important-text">
+                      {% if current_variant.title contains "seguidores" %}
+                        {{ current_variant.title | remove: "seguidores" }}
+                      {% else %}
+                        1
+                      {% endif %}
+                    </span>
+                  {% endif %}
+                </div>
               </span>
               {% if section.settings.show_saved_amount %}
               <span class="save_discount_pro hide">
