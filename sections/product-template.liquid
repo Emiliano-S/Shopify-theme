@@ -162,11 +162,7 @@
                 {{ current_variant.price | money }}
               </span>
               <span class="product-price__amount">
-                {% for variant in product.variants %}
-                  {% if variant.price == current_variant.price %}
-                      {{ variant.option2 }}
-                  {% endif %}
-              {% endfor %}
+                      {{ variant.option3 }}
                 <span class="important-text">seguidores</span>
               </span>
               {% if section.settings.show_saved_amount %}
