@@ -109,7 +109,9 @@
                 </label>
               {% else %}
                 <label for="swatch-{{ option_index }}-{{ value | handle }}">
-                  {{ value }}
+                  <div class="swatch-price">
+                    {{ value }}
+                  </div>
                   <div>{{ swatch }}</div>
                   <img class="crossed-out" src="{{ 'soldout.png' | asset_url }}" />
                 </label>
