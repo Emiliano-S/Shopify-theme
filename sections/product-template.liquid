@@ -121,9 +121,15 @@
                 {{ current_variant.price | money	 }}
               </span>
               <span class="product-price__amount">
-                {{ current_variant.option2 }}
+                {{ current_variant.option1 }}
                 <span class="important-text">seguidores</span>
               </span>
+              <script>
+  // Passa l'oggetto Liquid a JavaScript
+  var currentVariant = {{ current_variant | json }};
+  // Usa console.log per visualizzare il contenuto di current_variant
+  console.log(currentVariant);
+</script>
               {% if section.settings.show_saved_amount %}
               <!-- Dscount price in percentage  -->
               <span class="save_discount_pro">
