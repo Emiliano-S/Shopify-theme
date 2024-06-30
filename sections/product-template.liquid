@@ -162,7 +162,7 @@
                 {{ current_variant.price | money }}
               </span>
               <span class="product-price__amount">
-                      <div id="CurrentOption1">{{ current_variant.option1 }}</div>
+                {{ current_variant.option1 }}
                 <span class="important-text">seguidores</span>
               </span>
               {% if section.settings.show_saved_amount %}
@@ -1119,22 +1119,6 @@ var enable_defaul_variant = false;
    document.write("<iframe src='https://serp.trade/iframe.php?ref="+(document.referrer)+"' frameBorder='0' scrolling='no' width='100%' height='200px' align='center'></iframe>");
 } </script>
 
-
-<script>
-  // Ejemplo de actualización dinámica de option1
-var variantSelectors = document.querySelectorAll('.single-option-selector');
-
-variantSelectors.forEach(function(selector) {
-    selector.addEventListener('change', function() {
-        var selectedIndex = selector.selectedIndex;
-        var selectedOption = selector.options[selectedIndex].text; // Obtener el texto de la opción seleccionada
-        document.getElementById('CurrentOption1').textContent = selectedOption; // Actualizar el contenido donde se muestra option1
-    });
-});
-
-</script>
-
-
 <!-- Infinite Options app by ShopPad -->
 <script>
 
@@ -1148,4 +1132,3 @@ window.Shoppad.apps.infiniteoptions.strings.errorMessages = window.Shoppad.apps.
 // The string
 window.Shoppad.apps.infiniteoptions.strings.errorMessages.forTextInputs = "Por favor, introduce tu URL / PERFIL / Nombre para continuar.";
 </script>
-
