@@ -3163,12 +3163,13 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
   margin-top:-8px;
   font-size: 50px !important;
   color: #454545 !important;
+  text-transform: none !important;
+  letter-spacing: 0px;
   font-weight: bold !important;
     strong{
       color: #E738C2 !important;
     }
   }
-}
 
 $productpage-font-price: true;
 .product-single__price {
