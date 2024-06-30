@@ -31,7 +31,7 @@
   {%- assign enable_zoom = section.settings.enable_zoom -%}
 
   <div class="grid product-single">
-    <div class="grid__item product-single__photos medium-up--one-half">
+    <div class="product-single__photos medium-up--one-half">
       {%- assign featured_image = product.featured_image -%}
       {% for image in product.images %}
       {% capture img_id %}FeaturedImage-{{ section.id }}-{{ image.id }}{% endcapture %}
