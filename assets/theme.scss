@@ -3159,6 +3159,7 @@ $color-blankstate-background: rgba($color-body-text, 0.1);
   font-family: 'Poppins', sans-serif !important;
   margin-bottom: 10px;
   padding-bottom:3px;
+  text-align: center;
   @include media-query($medium-up) {
   margin-top:-8px;
   font-size: 50px !important;
