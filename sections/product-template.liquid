@@ -163,12 +163,8 @@
               </span>
               <div class="product-price__amount">
                 {% if current_variant.available %}
-                  <span class="important-text">
-                    {% if current_variant.option1 %}
-                      {{ current_variant.option1 }} seguidores
-                    {% else %}
-                      1 seguidor
-                    {% endif %}
+                  <span class="important-text" id="followerCount">
+                    {{ current_variant.option3 | default: 1 }} seguidores
                   </span>
                 {% endif %}
               </div>
@@ -1139,4 +1135,31 @@ window.Shoppad.apps.infiniteoptions.strings = window.Shoppad.apps.infiniteoption
 window.Shoppad.apps.infiniteoptions.strings.errorMessages = window.Shoppad.apps.infiniteoptions.strings.errorMessages || {}, 
 // The string
 window.Shoppad.apps.infiniteoptions.strings.errorMessages.forTextInputs = "Por favor, introduce tu URL / PERFIL / Nombre para continuar.";
+</script>
+
+<script>
+  // Función para actualizar la cantidad de seguidores mostrada
+  function updateFollowerCount(variant) {
+    var followerCountElement = document.getElementById('followerCount');
+    if (followerCountElement) {
+      var followerCount = variant.option3 || 1;
+      followerCountElement.textContent = followerCount + ' seguidores';
+    }
+  }
+
+  // Capturar cambios en la selección de variantes y actualizar
+  document.addEventListener('DOMContentLoaded', function() {
+    var productForm = document.getElementById('AddToCartForm');
+    if (productForm) {
+      productForm.addEventListener('change', function() {
+        var selectedVariantId = productForm.querySelector('[name="id"]').value;
+        var selectedVariant = product.variants.find(function(variant) {
+          return variant.id == selectedVariantId;
+        });
+        if (selectedVariant) {
+          updateFollowerCount(selectedVariant);
+        }
+      });
+    }
+  });
 </script>
