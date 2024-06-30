@@ -121,13 +121,7 @@
                 {{ current_variant.price | money	 }}
               </span>
               <span class="product-price__amount">
-                {% for option in product.options %}
-                  {% assign option_index = forloop.index0 %}
-                  {% for variant in product.variants %}
-                    {% assign value = variant.options[option_index] %}
-                    {{ product.options[option_index] }}
-                  {% endfor %}
-                {% endfor %}
+              
                 <span class="important-text">seguidores</span>
               </span>
               {% if section.settings.show_saved_amount %}
@@ -168,7 +162,7 @@
                 {{ current_variant.price | money }}
               </span>
               <span class="product-price__amount">
-                      {{ variant.option3 }}
+                      {{ section.settings.show_quantity_selector }}
                 <span class="important-text">seguidores</span>
               </span>
               {% if section.settings.show_saved_amount %}
