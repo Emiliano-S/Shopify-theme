@@ -470,10 +470,10 @@
         {% endif %}
         {% if section.settings.enable_trust_badges %}
         <div class="payment-icon" style="display: none;">
-          <p class="line">
+          <p class="line" style="display: none;">
             {{ 'products.product.badges_title' | t }}
           </p>
-          <span class="payment-img">
+          <span class="payment-img" style="display: none;">
             {% unless section.settings.enable_trust_badges_image == blank %}
             <img src="{{ section.settings.enable_trust_badges_image | img_url: '550x' }}">
             {% else %}
