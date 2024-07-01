@@ -9746,3 +9746,18 @@ background-position:-485px -305px
     font: normal normal 400 normal 12px / 16.8px Karla, "MS Sans Serif", Geneva, sans-serif;
     outline: rgb(27, 25, 25) none 0px;
 }/*#H4_10:before*/
+
+
+.custom-card-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .custom-card{
+    width: 33.33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+  }
+}
