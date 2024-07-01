@@ -457,7 +457,7 @@
           </span>
           <span class="fake_counter fake-cntr" > {{ 'products.product.visitor_counter_text' | t}}</span>       
         {% endif %}
-        <div class="delivery_time_new">
+        <div class="delivery_time_new" style="display: none;">
           {% if section.settings.show_del_time %} 
           <p class="showdeltime">   
             <i class="fas fa-plane" aria-hidden="true"></i> 
@@ -469,7 +469,7 @@
           {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
         {% endif %}
         {% if section.settings.enable_trust_badges %}
-        <div class="payment-icon">
+        <div class="payment-icon" style="display: none;">
           <p class="line">
             {{ 'products.product.badges_title' | t }}
           </p>
