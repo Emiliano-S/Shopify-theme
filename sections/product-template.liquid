@@ -458,12 +458,12 @@
           <span class="fake_counter fake-cntr" > {{ 'products.product.visitor_counter_text' | t}}</span>        {% endcomment %}
         {% endif %}
         <div class="delivery_time_new">
-          {% if section.settings.show_del_time %} 
+          {% comment %} {% if section.settings.show_del_time %} 
           <p class="showdeltime">   
             <i class="fas fa-plane" aria-hidden="true"></i> 
             <span>{{ 'products.product.deliiver_time_text_1' | t }} {{ section.settings.delivery_time_number}} {{ 'products.product.deliiver_time_text_2' | t }} </span>
           </p>
-          {% endif %}
+          {% endif %} {% endcomment %}
         </div>
         {% if section.settings.show_social %}
           {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
