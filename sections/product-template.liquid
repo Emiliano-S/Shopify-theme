@@ -1,8 +1,8 @@
 <style>
-  {% if section.settings.variant_swacth == 'two' %}
-    .selector-wrapper {
-      display: none;
-    }
+  {% if section.settings.variant_swacth == 'two'  %} 
+  .selector-wrapper {
+    display:none;
+  }
   {% endif %}
   .product-description {
     margin-bottom: 12px;
@@ -12,26 +12,17 @@
   {% if section.settings.buy_it_now_action == 'direct_to_cart' %}var buyitnowaction = true;{% else %}var buyitnowaction = false;{% endif %}{% if section.settings.enable_related_upsell %}var relatedupsellenable = true;{% else %}var relatedupsellenable = false;{% endif %}{% if section.settings.buy_it_now_action == 'thank_you_message' %}var thankmsg = true;{% else %}var thankmsg = false;{% endif %}{% if section.settings.buy_it_now_action == 'direct_to_checkout' %}var drchkout = true;{% else %}var drchkout = false;{% endif %}
   {% if section.settings.enable_sticky %}var eblstcky = true;{% else %}var eblstcky = false;{% endif %}{% if section.settings.enable_payment_button %}var ebl_pay_but = true;var addToCartBtnLabel_1 = "{{ 'products.dynamic_checkout_buttons.add_to_cart_text_when_dynamic_checkout_buttons_enable' | t }}";{% else %}var ebl_pay_but = false;var addToCartBtnLabel_1 = "{{ 'products.product.add_to_cart' | t }}";{% endif %}{% if section.settings.visitor_counter_enable %}var visitorcountr = true;{% else %}var visitorcountr = false;{% endif %}
 </script>
-<div
-  class="product-template__container product-{{ product.id }}"
-  itemscope
-  itemtype="http://schema.org/Product"
-  id="ProductSection-{{ section.id }}"
-  data-section-id="{{ section.id }}"
-  data-section-type="product"
-  data-enable-history-state="true">
+<div class="product-template__container product-{{ product.id }}" itemscope itemtype="http://schema.org/Product" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true"> 
 
-  <div>
-    {{ product.metafields.alireviews.seo_rating_review_key }}
-  </div>
-  {% if product.metafields.loox.num_reviews %}
-  {% endif %}
+  <div> {{ product.metafields.alireviews.seo_rating_review_key }} </div>
+{% if product.metafields.loox.num_reviews %}
+{% endif %}
   <meta itemprop="name" content="{{ product.title }}">
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
-<meta itemprop="image" content="{{ product.featured_image.src | img_url: '800x' }}">
+  <meta itemprop="image" content="{{ product.featured_image.src | img_url: '800x' }}">
 
   {% comment %}
-    Get first variant, or deep linked one
+  Get first variant, or deep linked one
   {% endcomment %}
   {%- assign current_variant = product.selected_or_first_available_variant -%}
 
@@ -43,102 +34,69 @@
     <div class="product-single__photos medium-up--one-half">
       {%- assign featured_image = product.featured_image -%}
       {% for image in product.images %}
-        {% capture img_id %}FeaturedImage-{{ section.id }}-{{ image.id }}{% endcapture %}
-        {% capture img_class %}product-featured-img{% endcapture %}
-        {% capture zoom_img_id %}FeaturedImageZoom-{{ section.id }}-{{ image.id }}{% endcapture %}
-        {% capture img_wrapper_id %}{{ zoom_img_id }}-wrapper{% endcapture %}
-        {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+      {% capture img_id %}FeaturedImage-{{ section.id }}-{{ image.id }}{% endcapture %}
+      {% capture img_class %}product-featured-img{% endcapture %}
+      {% capture zoom_img_id %}FeaturedImageZoom-{{ section.id }}-{{ image.id }}{% endcapture %}
+      {% capture img_wrapper_id %}{{ zoom_img_id }}-wrapper{% endcapture %}
+      {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
 
-        {% include 'image-style' with small_style: true
-          , width: 530
-          , height: 530
-          , wrapper_id: img_wrapper_id
-          , img_id: img_id %}
+      {% include 'image-style' with small_style: true, width: 530, height: 530, wrapper_id: img_wrapper_id, img_id: img_id %}
 
-        <div id="{{ img_wrapper_id }}" class="product-single__photo-wrapper small--hide js">
-          <div
-            id="{{ zoom_img_id }}"
-            style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;"
-            class="product-single__photo{% if enable_zoom %} js-zoom-enabled{% endif %}{% if product.images.size > 1 %} product-single__photo--has-thumbnails{% endif %}{% unless featured_image == image %} hide{% endunless %}"
-            data-image-id="{{ image.id }}"
-            {% if enable_zoom %}
-            data-zoom="{{ image | img_url: product_image_zoom_size, scale: product_image_scale }}"
-            {% endif %}>
-            <img
-              id="{{ img_id }}"
-              class="feature-row__image {{ img_class }} lazyload{% unless featured_image == image %} lazypreload{% endunless %}"
-              src="{{ image | img_url: '300x300' }}"
-              data-src="{{ img_url }}"
-              data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
-              data-aspectratio="{{ image.aspect_ratio }}"
-              data-sizes="auto"
-              alt="{{ image.alt | escape }}">
-          </div>
+      <div id="{{ img_wrapper_id }}" class="product-single__photo-wrapper small--hide js">
+        <div id="{{ zoom_img_id }}" style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;" class="product-single__photo{% if enable_zoom %} js-zoom-enabled{% endif %}{% if product.images.size > 1 %} product-single__photo--has-thumbnails{% endif %}{% unless featured_image == image %} hide{% endunless %}" data-image-id="{{ image.id }}"{% if enable_zoom %} data-zoom="{{ image | img_url: product_image_zoom_size, scale: product_image_scale }}"{% endif %}>
+          <img id="{{ img_id }}"
+               class="feature-row__image {{ img_class }} lazyload{% unless featured_image == image %} lazypreload{% endunless %}"
+               src="{{ image | img_url: '300x300' }}"
+               data-src="{{ img_url }}"
+               data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+               data-aspectratio="{{ image.aspect_ratio }}"
+               data-sizes="auto"
+               alt="{{ image.alt | escape }}">
         </div>
+      </div>
       {% endfor %}
 
       <noscript>
         {% capture product_image_size %}530x{% endcapture %}
-        <img
-          src="{{ featured_image | img_url: product_image_size, scale: product_image_scale }}"
-          alt="{{ featured_image.alt }}"
-          id="FeaturedImage-{{ section.id }}"
-          class="product-featured-img"
-          style="max-width: 530px;">
+        <img src="{{ featured_image | img_url: product_image_size, scale: product_image_scale }}" alt="{{ featured_image.alt }}" id="FeaturedImage-{{ section.id }}" class="product-featured-img" style="max-width: 530px;">
       </noscript>
 
 
       {% if product.images.size > 1 %}
-        {%- assign enable_thumbnail_slides = true -%}
+      {%- assign enable_thumbnail_slides = true -%}
       {% endif %}
 
       <div class="thumbnails-wrapper {% if product.images.size == 1 %}medium-up--hide{% endif %}{% if enable_thumbnail_slides == true %} thumbnails-slider--active{% endif %}">
         {% if enable_thumbnail_slides == true %}
-          <button type="button" class="btn btn--link small--hide thumbnails-slider__btn thumbnails-slider__prev thumbnails-slider__prev--{{ section.id }}">
-            {% include 'icon-chevron-left' %}
-            <span class="icon__fallback-text">{{ 'sections.slideshow.previous_slide' | t }}</span>
-          </button>
+        <button type="button" class="btn btn--link small--hide thumbnails-slider__btn thumbnails-slider__prev thumbnails-slider__prev--{{ section.id }}">
+          {% include 'icon-chevron-left' %}
+          <span class="icon__fallback-text">{{ 'sections.slideshow.previous_slide' | t }}</span>
+        </button>
         {% endif %}
         <ul class="grid grid--uniform product-single__thumbnails product-single__thumbnails-{{ section.id }}">
           {% for image in product.images %}
-            <li class="grid__item {% unless enable_thumbnail_slides == true %}{{ product_thumbnail_width }} {% endunless %}{% if product.images.size > 1 %}product-single__thumbnails-item{% endif %} js">
-              <a
-                href="{{ image.src | img_url: product_image_zoom_size, scale: product_image_scale }}"
-                class="text-link product-single__thumbnail product-single__thumbnail--{{ section.id }}"
-                data-thumbnail-id="{{ image.id }}"
-                {% if enable_zoom %}
-                data-zoom="{{ image.src | img_url: product_image_zoom_size, scale: product_image_scale }}"
-                {% endif %}>
-                <img
-                  class="product-single__thumbnail-image medium-up--hide"
-                  src="{{ image.src | img_url: '480x480', scale: 2 }}"
-                  alt="{{ image.alt | escape }}">
-                <img
-                  class="product-single__thumbnail-image small--hide"
-                  src="{{ image.src | img_url: 'compact' }}"
-                  alt="{{ image.alt | escape }}">
-              </a>
-            </li>
+          <li class="grid__item {% unless enable_thumbnail_slides == true %}{{ product_thumbnail_width }} {% endunless %}{% if product.images.size > 1 %}product-single__thumbnails-item{% endif %} js">
+            <a href="{{ image.src | img_url: product_image_zoom_size, scale: product_image_scale }}"
+               class="text-link product-single__thumbnail product-single__thumbnail--{{ section.id }}"
+               data-thumbnail-id="{{ image.id }}"
+               {% if enable_zoom %}data-zoom="{{ image.src | img_url: product_image_zoom_size, scale: product_image_scale }}"{% endif %}>
+              <img class="product-single__thumbnail-image medium-up--hide" src="{{ image.src | img_url: '480x480', scale: 2 }}" alt="{{ image.alt | escape }}">
+              <img class="product-single__thumbnail-image small--hide" src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
+            </a>
+          </li>
           {% endfor %}
         </ul>
         {% if enable_thumbnail_slides == true %}
-          <button type="button" class="btn btn--link small--hide thumbnails-slider__btn thumbnails-slider__next thumbnails-slider__next--{{ section.id }}">
-            {% include 'icon-chevron-right' %}
-            <span class="icon__fallback-text">{{ 'sections.slideshow.next_slide' | t }}</span>
-          </button>
+        <button type="button" class="btn btn--link small--hide thumbnails-slider__btn thumbnails-slider__next thumbnails-slider__next--{{ section.id }}">
+          {% include 'icon-chevron-right' %}
+          <span class="icon__fallback-text">{{ 'sections.slideshow.next_slide' | t }}</span>
+        </button>
         {% endif %}
       </div>
 
-      <form
-        style="display: none;"
-        method="post"
-        action="/cart">
+      <form style="display: none;" method="post" action="/cart">
 
-        <input
-          type="submit"
-          class="custome_checkout"
-          value="checkout"
-          name="checkout" />
+        <input  type="submit" class="custome_checkout" value="checkout" name="checkout"/>
 
       </form>
     </div>
@@ -146,69 +104,61 @@
       <div class="product-single__meta">
 
         <h1 itemprop="name" class="product-single__title heading">
-          Compra seguidores de Instagram con
-          <strong>entrega instantánea</strong>
-          ⚡
+          Compra seguidores de Instagram con <strong>entrega instantánea</strong> ⚡
         </h1>
 
         {% if section.settings.show_vendor %}
-          <p itemprop="brand" class="product-single__vendor">{{ product.vendor }}</p>
+        <p itemprop="brand" class="product-single__vendor">{{ product.vendor }}</p>
         {% endif %}
 
-        <p class="product-single__price product-single__price-{{ section.id }}{% unless current_variant.available %} product-price--sold-out{% endunless %}">
-          {% if current_variant.compare_at_price > current_variant.price %}
+                   <p class="product-single__price product-single__price-{{ section.id }}{% unless current_variant.available %} product-price--sold-out{% endunless %}">
+            {% if current_variant.compare_at_price > current_variant.price %}
             <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
             <s id="ComparePrice-{{ section.id }}">{{ current_variant.compare_at_price | money }}</s>
             <span class="product-price__price product-price__price-{{ section.id }} product-price__sale product-price__sale--single">
-              <span
-                class="product-price"
-                id="ProductPrice-{{ section.id }}"
-                itemprop="price"
-                content="{{ current_variant.price | divided_by: 100.00 }}">
-                {{ current_variant.price | money }}
+              <span class="product-price" id="ProductPrice-{{ section.id }}"
+                    itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+                {{ current_variant.price | money	 }}
               </span>
               <span class="product-price__amount">
-
+              
                 <span class="important-text">seguidores</span>
               </span>
               {% if section.settings.show_saved_amount %}
-                <!-- Dscount price in percentage -->
-                <span class="save_discount_pro">
-                  {% if current_variant.compare_at_price > current_variant.price %}
-                    {% if settings.show_discount_amount == 'percent_save' %}
-                      <span class="per_discount">
-                        {% comment %}
-                        {% endcomment %}
-                        {% assign money_pro_format = shop.money_format | strip_html | json %}
-
-                        {% if money_pro_format contains "${{amount_no_decimals}}" or money_pro_format contains "${{amount_no_decimals_with_comma_separator}}" %}
-                          {{ current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | times: 100 | money_without_currency | replace: ",", "." | replace: '.0', '' }}{{ 'products.product.on_save' | t }}
-                        {% elsif money_pro_format contains "${{amount_with_comma_separator}}" %}
-                          {{ current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | money_without_currency | replace: ",", "." | times: 100 | replace: '.0', '' }}{{ 'products.product.on_save' | t }}
-                        {% else %}
-                          {{ current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | money_without_currency | times: 100 | replace: '.0', '' }}{{ 'products.product.on_save' | t }}
-                        {% endif %}
-                      </span>
-                    <!-- Dscount price in percentage -->
-                    {% else %}
-                      <span class="sale-tag salePrice large">
-                        {% assign sale = current_variant.compare_at_price | minus: current_variant.price | money %}
-                        {{ 'products.product.on_save_like_price' | t }} {{ sale }}
-                      </span>
-                    {% endif %}
+              <!-- Dscount price in percentage  -->
+              <span class="save_discount_pro">
+              {% if current_variant.compare_at_price > current_variant.price %}
+                {% if settings.show_discount_amount == 'percent_save' %}
+                <span class="per_discount">
+                  {% comment %}
+                    {% endcomment %}
+                  {% assign money_pro_format = shop.money_format | strip_html | json %}
+             
+                  {% if money_pro_format contains "${{amount_no_decimals}}" or money_pro_format contains "${{amount_no_decimals_with_comma_separator}}" %}
+                  {{ current_variant.compare_at_price  | minus: current_variant.price  | times: 100.0 | divided_by: current_variant.compare_at_price | times: 100 | money_without_currency | replace:",","." | replace: '.0', '' }}{{ 'products.product.on_save' | t }}
+                  {% elsif money_pro_format contains "${{amount_with_comma_separator}}" %}
+                  {{ current_variant.compare_at_price  | minus: current_variant.price  | times: 100.0 | divided_by: current_variant.compare_at_price | money_without_currency | replace:",","."  | times: 100 | replace: '.0', '' }}{{ 'products.product.on_save' | t }}
+				  {% else %}                  
+                  {{ current_variant.compare_at_price  | minus: current_variant.price  | times: 100.0 | divided_by: current_variant.compare_at_price  | money_without_currency | times: 100 | replace: '.0', ''}}{{ 'products.product.on_save' | t }}
                   {% endif %}
+                  </span>
+                <!-- Dscount price in percentage  -->
+                {% else %}
+                <span class="sale-tag salePrice large"> 
+                  {% assign sale = current_variant.compare_at_price | minus:  current_variant.price |  money %}
+                  {{ 'products.product.on_save_like_price' | t }} {{sale}}
                 </span>
+                {% endif %}
+              {% endif %}
+              </span>
               {% endif %}
             </span>
-          {% else %}
+            {% else %}
             <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
             <s id="ComparePrice-{{ section.id }}" class="hide">{{ current_variant.compare_at_price | money }}</s>
             <span class="product-price__price product-price__price-{{ section.id }}">
-              <span
-                class="product-price"
-                id="ProductPrice-{{ section.id }}"
-                itemprop="price"
-                content="{{ current_variant.price | divided_by: 100.00 }}">
+              <span class="product-price" id="ProductPrice-{{ section.id }}"
+                    itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
                 {{ current_variant.price | money }}
               </span>
               <span class="product-price__amount">
@@ -216,184 +166,143 @@
                 <span class="important-text">seguidores</span>
               </span>
               {% if section.settings.show_saved_amount %}
-                <span class="save_discount_pro hide"></span>
+              <span class="save_discount_pro hide">
+              </span>
               {% endif %}
-
+              
             </span>
-          {% endif %}
-        </p>
-        {% comment %}
+            {% endif %}
+          </p>
+          {% comment %}
           {% if current_variant.price != 0 %}
           {% else %}
           <p class="free_itm">
-          {{ 'collections.tag.free_text' | t }}</p>
+            {{ 'collections.tag.free_text' | t }}</p>
           {% endif %}
-        {% endcomment %}
-        {% if section.settings.product_review %}
+          {% endcomment %}
+          {% if section.settings.product_review  %}
           <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-        {% endif %}
-        {% if section.settings.product_description == 'under_the_price' %}
-
+          {% endif %}
+          {% if section.settings.product_description == 'under_the_price'%}
+          
           <div class="product-single__description rte" itemprop="description">
             <ul class="tabs">
-              <li>
-                <a href="#tab-1">{{ 'products.product_tab.product_tab_1' | t }}</a>
-              </li>
+              <li><a href="#tab-1">{{ 'products.product_tab.product_tab_1' | t }}</a></li>
 
             </ul>
-            <div>
+                        <div >
               <div class="product-description">
                 {{ product.description }}
               </div>
             </div>
 
           </div>
-        {% endif %}
-
-        {%- capture "form_classes" -%}
+          {% endif %}
+          
+          {%- capture "form_classes" -%}
           product-form product-form-{{ section.id }}{% unless section.settings.show_variant_labels %} product-form--hide-variant-labels{% endunless %}{% if section.settings.enable_payment_button and product.has_only_default_variant%} product-form--payment-button-no-variants{% endif %}
           {%- endcapture %}
-        {% form 'product'
-          , product
-          , id: "AddToCartForm"
-          , class: form_classes
-          , data-product-id: "{{ product.id }}", data-section: "{{ section.id }}", data-product: "{{ product | json | escape }}" %}
 
-          {% if section.settings.show_quantity_selector %}
+      {% form 'product', product, id: "AddToCartForm", class:form_classes, data-product-id: "{{ product.id }}", data-section: "{{ section.id }}", data-product: "{{ product | json | escape }}" %}
+      
+            {% if section.settings.show_quantity_selector %}
             <div class="product-form__item one-whole medium-up--hide product-form__item--quantity_1 prod_qty_mobile">
               <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
               <div class="qty_selector">
                 <span class='qtyminus' field='quantity'>{% include 'icon-minus' %}</span>
-                <input
-                  type="number"
-                  id="Quantity"
-                  name="quantity"
-                  value="1"
-                  min="1"
-                  class="product-form__input qty"
-                  pattern="[0-9]*">
+                <input type="number" id="Quantity" name="quantity" value="1" min="1" class="product-form__input qty" pattern="[0-9]*">
                 <span class='qtyplus' field='quantity'>{% include 'icon-plus' %}</span>
-              </div>
+              </div>            
             </div>
-          {% else %}
-            <input
-              type="hidden"
-              id="Quantity"
-              name="quantity"
-              value="1"
-              class="product-form__input prod_qty_mobile">
-          {% endif %}
-
-          {% unless product.has_only_default_variant %}
+            {% else %}
+            <input type="hidden" id="Quantity" name="quantity" value="1" class="product-form__input prod_qty_mobile">
+            {% endif %}
+         
+            {% unless product.has_only_default_variant %}
             {% if section.settings.show_tags %}
-              <div class="prod_tags">
-                <h5>{{ 'products.product.tags' | t }} :
-                </h5>
-                {% for tag in product.tags %}
-                  <span>{{ tag }}</span>
-                {% endfor %}
-              </div>
+            <div class="prod_tags">
+              <h5>{{ 'products.product.tags' | t }} : </h5>
+              {% for tag in product.tags %}
+              <span>{{ tag }}</span>
+              {% endfor %}
+            </div>
             {% endif %}
             {% for option in product.options_with_values %}
 
-              <div class="selector-wrapper small--one-whole js product-form__item">
-                <label
-                  {% if option.name == 'default' %}
-                  class="label--hidden"
-                  {% endif %}
-                  for="SingleOptionSelector-{{ forloop.index0 }}">
-                  {{ option.name }}
-                </label>
-                <select
-                  class="single-option-selector single-option-selector-{{ section.id }} product-form__input"
-                  id="SingleOptionSelector-{{ forloop.index0 }}"
-                  data-index="option{{ forloop.index }}">
-                  {% for value in option.values %}
-                    <option
-                      value="{{ value | escape }}"
-                      {% if option.selected_value == value %}
-                      selected="selected"
-                      {% endif %}>{{ value }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-            {% endfor %}
-          {% endunless %}
-
-          <select
-            name="id"
-            id="ProductSelect-{{ section.id }}"
-            data-section="{{ section.id }}"
-            class="product-form__variants no-js">
-            {% for variant in product.variants %}
-              {% if variant.available %}
-                <option
-                  {% if variant == product.selected_or_first_available_variant %}
-                  selected="selected"
-                  {% endif %}
-                  value="{{ variant.id }}">
-                  {{ variant.title }}
-                </option>
-              {% else %}
-                <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t }}</option>
-              {% endif %}
-            {% endfor %}
-          </select>
-
-          <!-- PRODUCT SWATCH CODE IF ENABLE -->
-          {% if section.settings.variant_swacth == 'two' %}
-            {% if product.variants.size > 1 %}
-              <div class="swatch_options" style="width: 80%;">
-                {% for option in product.options %}
-                  {% include 'swatch' with option %}
+            <div class="selector-wrapper small--one-whole js product-form__item">
+              <label {% if option.name == 'default' %}class="label--hidden" {% endif %}for="SingleOptionSelector-{{ forloop.index0 }}">
+                {{ option.name }}
+              </label>
+              <select class="single-option-selector single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+                {% for value in option.values %}
+                <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
                 {% endfor %}
-              </div>
-            {% endif %}
-        {% endif %}
-          <!-- END PRODUCT SWATCH CODE IF ENABLE -->
-          {% include 'product-page-features' %}
-          <input
-            required
-            type="hidden"
-            id="upsellcheckquantity"
-            name="properties[upsellcheckquantity]">
-        {% endform %}
+              </select>
+            </div>
+            {% endfor %}
+            {% endunless %}
 
-        {% if section.settings.enable_sticky %}
+            <select name="id" id="ProductSelect-{{ section.id }}" data-section="{{ section.id }}" class="product-form__variants no-js">
+              {% for variant in product.variants %}
+              {% if variant.available %}
+              <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+                {{ variant.title }}
+              </option>
+              {% else %}
+              <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t }}</option>
+              {% endif %}
+              {% endfor %}
+            </select>
+
+            <!-- PRODUCT SWATCH CODE IF ENABLE -->
+            {% if section.settings.variant_swacth == 'two'  %}  
+            {% if product.variants.size > 1 %}
+            <div class="swatch_options" style="width: 80%;">
+            {% for option in product.options %}
+            {% include 'swatch' with option %}
+            {% endfor %} 
+            </div>
+            {% endif %}
+            {% endif %} 
+            <!-- END PRODUCT SWATCH CODE IF ENABLE -->
+            {% include 'product-page-features' %}
+            <input required type="hidden" id="upsellcheckquantity" name="properties[upsellcheckquantity]">
+         {% endform %}
+
+          {% if section.settings.enable_sticky %}
 
           <style>
 
-            @media(max-width: 749px) {
+            @media(max-width:749px) {
               /*               .counter_box.show{display:none !important;} */
-
-
               /*
-   div#progressBar{
-   display:none !important;
-   }
-   .counter_box.show {
-   display: none !important;
-   }
-*/.product-form__item.product-form__item--quantity,
-              .product-form__item.product-form__item--quantity + div {
-                display: none !important;
-              }
+              div#progressBar{ 
+              display:none !important;
+            }
+              .counter_box.show {
+              display: none !important;
+            } */
 
-              .only_desktop {
-                display: none !important;
+              .product-form__item.product-form__item--quantity,  
+              .product-form__item.product-form__item--quantity + div {
+                display : none !important;
+              }
+            
+              .only_desktop{
+                display:none !important;
               }
               #AddToCartForm .cst-small-crtbtn button#AddToCart,
               #AddToCartForm .qty_stickyfor button#AddToCart,
               #AddToCartForm .qty_stickyfor button#AddToCartZero {
-                display: none;
+                display:none;
               }
-              #AddToCartForm .qty_stickyfor .ajaxified-cart-feedback {
-                display: none !important;
+              #AddToCartForm .qty_stickyfor .ajaxified-cart-feedback{
+                display:none!important;
               }
               .stiky_form div#mst-stiky-box {
                 left: 0 !important;
                 width: 100%;
-                right: 0;
+                right:0;
               }
               .price-lable {
                 font-size: 16px !important;
@@ -407,26 +316,27 @@
                 z-index: 999;
                 width: 310px;
                 right: 0;
-                display: block !important;
+                display: block!important;
               }
               {% if section.settings.enable_payment_button %}
-                .stiky_form div#mst-stiky-box {
-                  padding-bottom: 70px;
-                }
-                .shopify-payment-button {
-                  position: fixed;
-                  bottom: -20px;
-                  width: 100%;
-                  z-index: 1000;
-                  left: auto;
-                  right: 0;
-                  padding-left: 10px;
-                  padding-right: 10px;
-                }
+              .stiky_form div#mst-stiky-box {
+                padding-bottom: 70px;
+              }
+              .shopify-payment-button {
+                position: fixed;
+                bottom: -20px;
+                width: 100%;
+                z-index: 1000;
+                left: auto;
+                right: 0;
+                padding-left: 10px;
+                padding-right: 10px;
+              }
               {% endif %}
             }
 
-            @media(min-width: 750px) {
+            @media(min-width:750px){
+
 
 
               button#AddToCart {
@@ -437,333 +347,280 @@
           </style>
 
           {% if section.settings.enable_buy_it_stiky_qty %}
-            <style>
-              @media screen and (max-width: 749px) {
-                #mst-stiky-box div#sticky_btnn.product-form__item--quantity {
-                  display: none !important;
-                }
-                #AddToCartForm1.stiky_form button#AddToCart {
-                  width: 100% !important;
-                }
-                #progress_bar1,
-                #progressBar {
-                  display: none !important;
-                }
-              }
-              {% if section.settings.enable_buy_it_stiky_qty and section.settings.sticky_button == 'show_progress_bar' %}
-                #progress_bar2,
-                #progressBar1 {
-                  display: block !important;
-                }
-                #AddToCartForm1.stiky_form .product-form__item.product-form__item--quantity input#Quantity {
-                  padding: 9px;
-                }
-              {% endif %}
+          <style> 
+            @media screen and (max-width:749px) {
+              #mst-stiky-box div#sticky_btnn.product-form__item--quantity{ display:none !important; } 
+              #AddToCartForm1.stiky_form button#AddToCart{ width:100% !important; } 
+              #progress_bar1,#progressBar{ display: none !important; } 
+            }
+            {% if section.settings.enable_buy_it_stiky_qty and section.settings.sticky_button == 'show_progress_bar' %}
+            #progress_bar2,#progressBar1{ display: block !important; }
+            #AddToCartForm1.stiky_form .product-form__item.product-form__item--quantity input#Quantity {
+              padding: 9px;
+            }
+            {% endif %}
 
-            </style>
+          </style>
           {% else %}
 
-            <style>
-              @media screen and (max-width: 749px) {
-                #mst-stiky-box div#sticky_btnn.product-form__item--quantity {
-                  display: block !important;
-                  float: left;
-                  width: 25% !important;
-                  padding-right: 0 !important;
-                }
-              }
-            </style>
+          <style> 
+            @media screen and (max-width:749px) {
+              #mst-stiky-box div#sticky_btnn.product-form__item--quantity{ display:block !important;float: left;width: 25% !important;padding-right: 0 !important; } 
+            }
+          </style>
 
-          {% endif %}
+          {% endif  %}
 
 
-          {% assign price_var1 = current_variant.price | withoutmoney %}
-          <div
-            id="AddToCartForm1"
-            class="product-form product-form-{{ section.id }}{% unless section.settings.show_variant_labels %} product-form--hide-variant-labels{% endunless %} stiky_form{% if price_var1 == 0 %} zerocost_from_box {% endif %}"
-            data-section="{{ section.id }}">
+          {% assign price_var1=current_variant.price | withoutmoney %}  
+          <div id="AddToCartForm1" class="product-form product-form-{{ section.id }}{% unless section.settings.show_variant_labels %} product-form--hide-variant-labels{% endunless %} stiky_form{% if price_var1 == 0 %} zerocost_from_box {% endif %}" data-section="{{ section.id }}" >
             <div id="mst-stiky-box" class="mst-stiky-div">
-              {% if section.settings.enable_timer_stg_on == 'enable_timer_stg_on' %}
-                {% if section.settings.sticky_button == 'show_timer' %}
-                  {% assign tg = 'show' %}
+              {% if section.settings.enable_timer_stg_on == 'enable_timer_stg_on' %}  
+              {% if section.settings.sticky_button == 'show_timer' %}
+              {% assign tg = 'show' %}
 
-                  {% if settings.disable_timer_use_tag %}
-                    {% for tag in product.tags %}
-                      {% if "no-timer" == tag %}
-                        {% assign tg = 'hide' %}
-                      {% endif %}
-                    {% endfor %}
-                  {% endif %}
-
-                  {% if current_variant.compare_at_price > current_variant.price %}
-                    <div class="price-lable {{tg }}">{{ 'products.product.sticky_timer_text' | t }}
-                      {% include 'sticky_timer_mobile' %}
-                    </div>
-                  {% else %}
-                    {% unless settings.disable_timer_regular_price %}
-                      <div class="price-lable {{tg }}">{{ 'products.product.sticky_timer_text' | t }}
-                        {% include 'sticky_timer_mobile' %}
-                      </div>
-                    {% endunless %}
-                  {% endif %}
-
-
-                {% endif %}
+              {% if settings.disable_timer_use_tag %}
+              {% for tag in product.tags %}
+              {% if "no-timer" == tag %}
+              {% assign tg = 'hide' %}
+              {% endif %}
+              {% endfor %}
+              {% endif %}
+              
+              {% if current_variant.compare_at_price > current_variant.price %}
+              <div class="price-lable {{tg }}">{{ 'products.product.sticky_timer_text' | t }} 
+                {% include 'sticky_timer_mobile'%}
+              </div>
+              {% else %}
+              {% unless settings.disable_timer_regular_price %}
+              <div class="price-lable {{tg }}">{{ 'products.product.sticky_timer_text' | t }} 
+                {% include 'sticky_timer_mobile'%}
+              </div>
+              {% endunless %}
+              {% endif %}
+             
+              
+              {% endif %}
               {% endif %}
               {% if section.settings.sticky_button == 'show_progress_bar' %}
-                {% include 'product-progress-bar-mobile' %}
+              {% include 'product-progress-bar-mobile' %}
               {% endif %}
 
-              {% if price_var1 == 0 %}
-                <button
-                  type="button"
-                  name="add"
-                  id="AddToCartZero"
-                  class="btn_sp btn stiky_button{% if section.settings.enable_payment_button %} dynamic_paybtn {% endif %}{% if section.settings.shake_effect_enable %} js-cartButtonPro-addToCartButton hvr-wobble-horizontal{% endif %}">
-                  <span id="AddToCartText">{{ 'products.product.free_add_to_cart' | t }}</span>
-                </button>
-              {% else %}
-                {% assign zeroCost = '' %}
-                <button
-                  type="button"
-                  name="add"
-                  id="AddToCart"
-                  class="btn_sp addtocart_btn stiky_button{% if section.settings.enable_payment_button %} dynamic_paybtn {% endif %}{% if section.settings.shake_effect_enable %} js-cartButtonPro-addToCartButton hvr-wobble-horizontal{% endif %}">
-                  <span class="AddToCartText addtocarttext">
-                    {% unless current_variant.available %}
-                      {{ 'products.product.sold_out' | t }}
-                    {% else %}
-                      {% if section.settings.enable_payment_button %}
-                        {{ 'products.dynamic_checkout_buttons.add_to_cart_text_when_dynamic_checkout_buttons_enable' | t }}
-                      {% else %}
-                        {{ 'products.product.add_to_cart' | t }}
-                      {% endif %}
-                    {% endunless %}
-                  </span>
-                </button>
-              {% endif %}
-            </div>
+              {% if price_var1 == 0 %}          
+              <button type="button" name="add" id="AddToCartZero" class="btn_sp btn stiky_button{% if section.settings.enable_payment_button %} dynamic_paybtn {% endif %}{% if section.settings.shake_effect_enable %} js-cartButtonPro-addToCartButton hvr-wobble-horizontal{% endif %}">
+                <span id="AddToCartText">{{ 'products.product.free_add_to_cart' | t }}</span>
+              </button>
+              {% else %}          
+              {% assign zeroCost='' %}  
+              <button type="button" name="add" id="AddToCart" class="btn_sp addtocart_btn stiky_button{% if section.settings.enable_payment_button %} dynamic_paybtn {% endif %}{% if section.settings.shake_effect_enable %} js-cartButtonPro-addToCartButton hvr-wobble-horizontal{% endif %}">
+                <span class="AddToCartText addtocarttext">
+                  {% unless current_variant.available %}
+                  {{ 'products.product.sold_out' | t }}
+                  {% else %}
+                  {% if section.settings.enable_payment_button %}
+                  {{ 'products.dynamic_checkout_buttons.add_to_cart_text_when_dynamic_checkout_buttons_enable' | t }}
+                  {% else %}
+                  {{ 'products.product.add_to_cart' | t }}
+                  {% endif %}
+                  {% endunless %}
+                </span>
+              </button>
+              {% endif %} 
+            </div> 
           </div>
-        {% endif %}
-      </div>
-      <div class="card-preview-container">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          width="129"
-          height="21"
-          viewBox="0 0 129 21"
-          fill="none">
-          <g clip-path="url(#clip0_27_39)">
-            <path d="M128.5 0.97998H0.5V20.98H128.5V0.97998Z" fill="url(#pattern0_27_39)" />
-          </g>
-          <defs>
-            <pattern
-              id="pattern0_27_39"
-              patternContentUnits="objectBoundingBox"
-              width="1"
-              height="1">
-              <use xlink:href="#image0_27_39" transform="matrix(0.00170648 0 0 0.0109215 0 -0.00238908)" />
+          {% endif %}
+        </div>
+        <div class="card-preview-container">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="129" height="21" viewBox="0 0 129 21" fill="none">
+            <g clip-path="url(#clip0_27_39)">
+            <path d="M128.5 0.97998H0.5V20.98H128.5V0.97998Z" fill="url(#pattern0_27_39)"/>
+            </g>
+            <defs>
+            <pattern id="pattern0_27_39" patternContentUnits="objectBoundingBox" width="1" height="1">
+            <use xlink:href="#image0_27_39" transform="matrix(0.00170648 0 0 0.0109215 0 -0.00238908)"/>
             </pattern>
             <clipPath id="clip0_27_39">
-              <rect
-                width="128"
-                height="20"
-                fill="white"
-                transform="translate(0.5 0.97998)" />
+            <rect width="128" height="20" fill="white" transform="translate(0.5 0.97998)"/>
             </clipPath>
-            <image
-              id="image0_27_39"
-              width="586"
-              height="92"
-              xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAkoAAABcCAYAAACRM5o2AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAACSqADAAQAAAABAAAAXAAAAADUuYzpAAArFUlEQVR4Ae2dCXgUVbb4Ty/p7BvZgZAQAgHCIigqqMgWQMFxx2XEDR3nDTo6T8f17zLuz3XG7Tk+mfGJOuiMbxQFEYgssoorEPY1hJCE7Ht6/Z9ToZJeqrqrk6om3X3O93Wq6tate+v+6qb69LnnnquDU+JwOHTZk99cADr7AocDCjE5XjzH25Ak0KTTQQmA7t2y9Xct0qqF1K8KCgoWYPkLdDpdIR5zv9IKdh8oF59xEz7jEty+u3fvXs36ldhU6l/R0z/G95YD31sOfm+JYEJ3i+8tHb634N324usC0r8qKysXOEBH7zB+f4VuvxJaRu8v3CnR4fdiZmZ6V//S0dncKW9mWmz2xQCOGUJu/hNeBHS6VRF6/Y1H1i6sULPhhYWFmRaLBfsVcL9SE2zwlLUqIiLixpKSElX7ldj82Is/ybR1WBfjDzvuXyKUMNril9oqQ6Thxpbl8zTpX1VVVZlWu2MxOPh7MYy6VXdTsX8Z9bob09PTK4z0i2zg5Nc/wLPTu3PwXlgRcDiKSFHGvjATXz4ONdpO/Wr48OHcr9SAGbxlFJGirGa/ElFQ/4qevuQD7Kz83hKhhNkW+0BRp6Ks3ntLREj9q6Ky6gNUkqYbDAZHQnyczmQygV6vF7PwNgQJ2O12MJvN0NjU7LDZbEVWOwjvL332lNdvw/byyyYEH7p/TXLMEIZe/btINveIESNuw5cN9ytZQmFzYsapoVdVGxxdtOQ2B3D/UhVqEBZG1kRh6FXle8fhNuH9RUpSWmqKLioqipUklRn3xeJIEaZnTc+cnj1ZE2noVQ92Yey1L94z31OgCaB/mlpVomauWllq3ROXc9oIqN8X7KB+macND1fcKwLon9ar6yUuRkulUCZZklAkcnBSKBOgZ07PntpI/ml6h05w3A7lNnPbFBI45cSvMLf3bNjRyLGWhQmAFn0Bv8i4f3HfEgig5VqDvtD5/qLhNpbwJOD07Av1aFqKC08M3GoJAqrNSMOXF/crCcDhmIR9QbV+1c2P+1c3i7DfU71/ie8v9kkK374lPnt6f7FnWvj2A245E2ACTIAJMAEm4IMAK0o+APFpJsAEmAATYAJMIHwJsKIUvs+eW84EmAATYAJMgAn4IMCKkg9AfJoJMAEmwASYABMIXwKsKIXvs+eWMwEmwASYABNgAj4IsKLkAxCfZgJMgAkwASbABMKXACtK4fvsueVMgAkwASbABJiADwKsKPkAxKeZABNgAkyACTCB8CXAilL4PntuORNgAkyACTABJuCDACtKPgDxaSbABJgAE2ACTCB8CbCiFL7PnlvOBJgAE2ACTIAJ+CDAipIPQHyaCTABJsAEmAATCF8CrCiF77PnljMBJsAEmAATYAI+CLCi5AMQn2YCTIAJMAEmwATClwArSuH77LnlTIAJMAEmwASYgA8CRh/ng+50VmoMfLXoOkhJigadTtfj+7c7HGC3O8Bms4PFYoeKmhbYsacKvlx7AL7ecKjH5fKFTIAJMAEmwASYQPAQCDlF6Z2n50Bqckyvn4AelSy9QQdGgx4iTQD5sSbIH5QMl88sgOZWM3xevA8e/ct6MJttva6LC2ACTIAJMAEmwAT6JoGQU5TyspM0Jx0XY4JfXzIKrigqgPl/XApbfinXvE6uILAEMiwOyOuwQQ5ujQ4AUocdaKA0owJ92KSDfZF6aEFFurdiNADk9rNDfqod0uMdEIX/kVGomHdYAE4266CqCeBgtQFONPa+rt7eK1/PBJgAEwhHAiGnKMVG47dMgCQ6KgI+/vPl8Bhalv73sx0BqpWr0YJAjM0BU5ttMLPRAiPb7RCDypEvKY/QQ0mUHpYnGGFbjEFQpHxdQ+cz4u0wbZgNZhTY4IwBNrRa+r6qvEEHPxwzQPFeI6w/aAAcEWZhAkyACTCBABAIKUWJ/JOMxsD6pxtwaO5Pv58M67YdhSPHGwPwyLgKNQkMR6XoujoLXIBKUiT6pfkj/dF3jT5FTVY4YdTBl4kRsDTRCLW4LyWFWXa4baJZUJKkzntL65/ogP6JVrhklFWwNH223QgfbDNBfZu3q/gcE2ACTIAJ9JZAYLWK3t6tj+tnnJfnI4c2p0k5++iVy7QpnEvVhEASjqU9UNEB75a2wQxUdPxVktxvKsvqgNtrzLDkSBtcVm/FcbruHKTkvDmvAz66qa1HSlJ3SZ17aXFY1yQLfHFHK9wwwaLIIuVeBh8zASbABJiAMgIhpSidWZiprNUa5MrOTIDBAxM1KJmLVJvAr+otsORwK/yq0QrStp+e1xiLMyX/WNUB/32sDXI77DBvvBU+XdAK5+eh8qSyJERhXdPN8PHNWFeKk2amcj1cHBNgAkwgnAmElKI0NLffaXuWFIrgwd9MOm31c8W+CehQl7i7ygwP4CceFRotZQwqSZ9kl8PD4xsAff81lfw0O3x0YysUDVdfGdP0xrlwJsAEmEAQEAgpRSkrLe60Ih+C4QNY+iYBEypGT5/ogHloTdJaKHxXwgV1kDikFaJ314Khul3rKiE2EuClyzrgGrRgsTABJsAEmIB6BEJKUUqIw2+L0yjJCVGnsXauWo4ATe9/5XgHTGnWXokgJSn+wlowDW7tvB1U0CJ2obJ0MjBe1w/P7IArxmqvDMqx5nQmwASYQKgRCJlZbwacYh1pUjDPOtSeILfHJ4E7T5phXJv2gUHJ30lQknLclCKcTRexqw6gUAe2VO2V6ccvMkNVsx42YBgBFv8I5GTEQlyMsteiHUM0VNS2QV2T2a9KRuYm4qoB0pdU1bXDyfoO4eSA1GhIipcet62oaYOaRt/1RuBEk7H5SXBWQQpkp8cI5cVisK7mNivUNnbA/rIm+HFfLZQcbpC+IS+pGclR0C8hEvRuP7fNOBOUymVRmYDNBubN34L1wF6wlZcJH5o1ok9MBkPOYDCddS5EjBkPOPVb5Yq5uJAheuGEHMVLljjwi6upxQztHVbnyUmKegNF7Nbhi0GI3K3XAb2ITBEG3BqEiN2KCuFMASMwvckGVwdguI0aFDWyGUzuSlJXS1FZ2lsHjrh0sEdpr8A8PQeHGf8ejQErZb6Ru+6Ld5wJTB2fATfOzoNzR6aiAqCMXfEPFXDTM5uguqFTwXEuz33/zIJ+sPGtWe7JXcez7i2GdT9XCcf/fd85MHNCVtc5552bn90ES4qPOie57I8f1g9uvyQfrpoyCOJjIlzOSR2crG+H5z4ogbf+vU/qtEsateGdP54DhYOlg/uaLTZIveRfQAoTS+8JOBoboG3pv6D9y/8DW/VJ6QK3boTWTz4AQ2oaRF9zI0TPvQIgwvdzdy6ssuokNDRIK8x61Ibj4+IgIyPd+ZKw2Q8ZRem88QMVPzT6R25DJaknQmvAUZhm2ykVq0NYwoSmaOvgaLl0J+tJPXxN7wkMNNvhwQrt/YPoTo1JVogd7yOOltUOEXvqwHxGqt8Kur80kjFiJilLv1mivQXL33vry/nf++oQ0Cc1MRIuPX8g/PbSoTB6iHffw+lnZsKLvxsPtzy32WfTbkIlTE52H2noUpIoz4icBLmssPuodF9LSTDB878dBzfMHKz4hyNVkpYUBWTB8iXJaOFa+twUSEE+ckI/HMcis217auSycLpCAtZdO6DhiQfAXlut6ApSpJrffBnaV3wBCY8+C4aBgxRdR5mWr1gJ69Zv8Jo/IT4e5l48G4pmTPWrf3ktNAhOuhlNg+COZW6xcGiazBnPZAt+YaktVozsHBVphJsuHy1YmdQun8vzn8DtNRZFEbb9L9nzitgJqCQbfM+k06HVQV/lNjTnWZwqKefk2mDKUO2HHFW52T5WCFmHFi07CBN+swKK/rAavt5a7vUOSanyZYGKxEju86blyJbz16X7u87F4/Bfdnps17HzDi3WvbfUU1HKzYyFdW/MhPmz8nr0JbYLFTVfcs/Vw70qSeL1E0akiLu87SGB9mX/hvr/vEOxkuRcjfXgPjBvWuecpMp+Y1MTfPTxP+GJp55H65NnH1Slkj5YSMhYlLKz5H99uXO3arH+A35HNrV0AFm2MlJi4cVFW8DPQM/ut8nHvSBAMYymYyDJQIipfwdE9FduuYo41Ah2/PXuCMDPlLsvNMP6A9GgcTSEQGA+bXV8u/0kfLt9nWBdumfecMjN9JxdG4N+P2QB8ubrc9kF2ZAUJ+1z1NRqgQ9WHu5q4/BB8jHZDlc0Q7vbYtxx0Ub46qVpMDjL8966CvWx40tRIkVvwdx8H6V0nj4bFaW3/q0oK2eSIGDesgGaXn1O4kxnkj42DgyDcvHHGS5ndPwY2OtqXfLG/eYuiJ433yXNn4P7770bTKbuvmpD/6jyExWw+pu1cPx4ORwtLYW3/2cR3H/vPT1Syv25l76QN2QUpZRE32ZjEbgNrT9qS2u7BcRy83OSYdq5uVC8+Yja1XB5CgncilGylXmYKCzQS7bowmYvZyVO4bCvvroNbOnK+6xEKYqS8nCx3ekFVli1J2T+1RW1W4tMS4qPwEsLx8NP+2uFoSV3CxL5BXlTlMj3SU4+XHVEcLAWz5PDt5zQEJ270HCbEiWJFCxyEzDi0kvOQn6beySsVM55rkFrGA1JKpGzhrNFSQknqTyOuhpoevFJqVMQef5UiL3xNjDkDXU5b/lpGzS/8RJYjx6GuIX3QvTl17ic9/cgL28wjpC4PuuCYUPhgvMmwmtvvg3bd5TA7j37BMWpaPpUf4sPuvwh8/aMpmXXFQi9ELSwKDU2uzpyzp2aD2u2HgUyk7MElkAaOpFOx7XbAiHGBCtEZLk+eyX1Go+3BERRonu5dLSNFSUlD8VHnvpmizBD7OwRqVBV1yYoGzTrSxRSlBZ/3W0VEtNpOwhnnE1DR3E5+evn3cNulMcf/yTyG5qPPklyQsN0T7+/A8jpvBZnytGMO1J4MvtFwwVj0uGyydnQHy2cbR3e/2cWXlEgV4VHev6AeJwRZxLq8zjJCV4JtH78KNgb6l3y6AxGiH/kKYicPN0lXTyIGDcBkv/6IVh274CI0ePEZNW3RpxRt+DmG+Ge+x7EERMHbPv+B2BFSXXM2hSYn5OEFkjXX0hyNWmluNS4rU4aGx2BS5okwcFSnBbOElACE1u8v/DVvBlTLvobUchvP0WHU7N1ODzoiFTWb/0s3iX7pMFWSIk1QU1LoGxsLtWH1MHq7yuAFKX05GioxbAAlRgeIAMVDhKaDSYnN8ySd65e93MlOme7WolGeLEouQ+RXXROf9nQKDSkN+3uVS6hBMglgEIQ0GfHoXp467N9kBjrfYbU+aPTMMxAslzzJNPJqrTyuxOS5zhRhkBHGUQNWwSOolRo+6Y/zhrq/J+Nf+hJWSWpqyRUYrRUksR6EhMTID09DSorq6C6xnXIj5Sno6XHoL6+QfhOzkhPh9TUFPTf0/49J96fFltlZhgtalaxzBkT5X9NuVejhTWpoaldCDXgXlc+RupmRcmdivbHE1vVd9aXu2vTQOW+Se5lGGrbwZoV456s+jH9hiBl6Yud3r8MVa84BAtc/f0JeHj+KKFl/dCS04BhRsqrW9EiEwNjcKaXAUMK2CSsyORgLSdvu1mTKN+IHC9Db25KVV5/eb+kSozLpCTeUkOL9yClctaktT9Vwvlj0jyG8qgNZ7OiRBj8EseJxWipsUPUWVVg7N8CLZ/lgjF3NEROmeFXOVpnbmzsjJMVaeq0qFosFvj8i+WwFmfNNTe7uiJERppg9swimHPRTMHvyWq1wmN/egZaWlshISEBnnzsYVk/pyZ0Hn/syWdxZMYOg7Kz4d577tS6aZLlh4SiNG6kvEnbvdU0O01tqTjZIllkDDpYsgSWAEXhPqslME7cOgyHZEz1/gXjrfV6CiwYAEWJ7mFMfzsqSt7uhs8pIbB1F/qPoJVGjE2UiJY6/F5D/yILxKEVmXyLyErjLFPOyJD1HyIla+mGMufsWI4RBmHgSymRmvFG+eWEhsDuurIAXv90r1wWn+kD02LgV+cNkMz3P18cQAf1CDhjqKc1jWe+SSLzmuioW9N1nhSlhAV7QJ//X11pzjvoFgvFJcrfddMLjRClwm+ljZu2QFsbWtJR8ocMhpaWVnjuhVeg7Phx59tDixI6mqMTeEeHGZWoZbDlu23wp0cfgqioKBg//gz4ctkKYebcDz/9DGeNlx4uXLt+I9TVdf4/Tbx6gkv5gTyQ/w8L5F30sq68bOUmYZvKM97qGtpkA01GmkICby+fTmAvp9hJGEIoIGJMwjdVD4bdxJvToc9LoGT0gMBZ2QLVptNRD1mLaKhs7qSBXdVT9Oydh+thFAZgpOE3d0XpxtnyFu93vzzgYYEa7iV+0pGKFg9fIkrzJhTjiZS1P771Ixw64fpr39t14jmKJSXl2tDQbIYvN5XBlHEZ0ooSO3SLCBVvHe3HXPLqo+xgGHK+S5p40NzugFeWK/ePHNHfAHnpvRt+X79hE3z4j0+EW6DhNIqntHf/fqip6YyZlZyUBNddcxWQ43d8fByUHiuDf376GZTs2i0M1S3+8GO4fcFNUDRtKqz4ejWQdWnV6jWSihIN461d961QF5V7zgRWlMRn36Nteory4Qs1h97MOIPk6PEG2XtuwV+ZLIElkKKBxVCuBYZE5b/mpMrQtVsFPcvRu3eXVNEeadlJAdIePWoOvQTyU3JWlKiFpCTRbDhy6KaAlaJQPKTL0VlaSiie298wVpO7jPQ27CYx423pxjIh4CWtEiAncyYNgFnnZMH7Kw7Dk+9tx6VXlA0ZR+GyULfOGSJZ7CdrSqEDJ058j4ElKQq4u5Cj+xAcFjxY7r9y5l5W2Byjj5KLRA7AEADS1kWXfAoO6lvpHaDsZfPiy39x8Ssiy9CJisouSxJVd/WVlwnDYTQk9twzT8CXy1fAxbNmQr9+3YaL3JxBcN8f7oKXXnkNSnbvgY2bt8D1114N5Oc06dxzYP2GjbB33344VnYcsgdiW53kp1+2Q01tpw8UKWRSyrpTdk135f+zNK1W3cLjael0hSJO4VeYXTYbmcAPHqvz+DXofEGtm4O38zne14ZAP2vgFAJdZC+tNOTLEiDFLi4S14RS9o7U5sGEUKmr0E9JSkbnJXnMVps3NQeiMRCtlHz27TFJhcWbI7e70zeVW46hJh5652epKlzSKCQAKT0l718CD/66EEgJ8iXXzcgR1nOTyvf+ik6F0FsEbh5+kyLnJc3YrWQIuSzVuOnle+ZUdf78/x88dBj2HzjY9Tl0+EiXkpSakgJ/+P3v4KJZRV0NSUpMhBuuu6ZLSSKfJfqQ6HCa5ayZM7ryikN0s2fN6PJNWl28puu8uFP8zTphNxLDFEyZLG1VE/NqvZX+D9a6VhXLj48xKY6ETcqNsARJL+u34BIo+4/WQhtaBLxJVY13k7i3a/lczwgE0qKki1DhBUZDwbhOYCCEQo3VtQaiptCu4+DxZjha2QK0gK6zkCJCgScpTpHoC3nTRf45cVN53ixK7jPexPrfQB+kiYWpcOWFg8Qk2W0s+jQ9cesYzJsNlzy4VlJZEy9eeHmBuOuy3YMO5aKCRMqb6KPlkgkPSFHytiade/6wP47C59fRrYg7bO1gaTkAEbHDeo2mX5zyX0pjx4wSfIzESo0YniArKxMG9M+CM8aOQadsT2enn9ECtBKH0Y6Xl3dF7Y6JiYbcnBxhKE4si9aUo6G5/ljemNGF8Mv2nbB56zaYd9XlEBvb+T9FM+p2oQWK5MILzoOYGOWjRmI9am6DXlGaMlH5Yrhq+Cc1YbykIzjcRuvFeRMyqx8ukx+W83Ytn+s5gcDZk3p+j6frShzyZ1GJAM1+WzAn36M0sirRNPof9tZCwaAEIZSARyZM2IkO3xt3nJQ6BcO9hAaQsiiJhdzw1EagYJQ0K889GKaYx3lLa9itea0IZv1nMZRWeWrQk8emwyhsj5T87ylrEp2jfvXjvjqg/O5y9vBU9yQ+9kJAFzcaHA1bhRxWHJP/S8soiDmwFe4a66kopcbr4Kv7XZV1upAM1be+0waVDfgj7JTQbMw0zK9U/uOO2zwCTspdSzPSXn3tLdixs8QlC1mSWlvbBIVHVHooA+UXhaxSpCiZzWZY9+1GuHj2TOFU8Zp1Qpwm0Q9KzH+6tkE/9DZxDMaaUCi98U/qMFuFqf77jtT6VJLodihfb+pT2CTO5kagBn/NB0ocFhX+fRTG/1KjTQ3K3FLUqCrkyyA/JSmhBWHHDOlULm72Yk1yXtfNuZxYtEhRcEopIedWb9GzSWF5+v2dUISKD/kNKRGK5v3n358lmXXh5Z5fzpSRfnB+tOqIyzVy9Y3NT1Js8XcpMEwP9Jm/Flp+3BYLtzdMhn+158EnB1ZAZSsNwXkKzRdy/2wvtbkoSXRV4UA9RJs8r1cjZcknn3YpSRRf6Y7bb4XXX30B/vbOm/Dnl54XhumGDfX8UUF1Dy8YBrm5OcJtiMqR2WwBmllHcua4MyAt9fQr2yq86YX2nLY/w4coD5VvJVXbDyGr0UkcPttzqBp27jsJ9Y3Kv2koP0vgCdQaA6gotffy34dCJAfofhvbdcIv/8A/kdCskeIHyQWvpUCL9Av++hm5ko1vxJhF7oqGmJFmvNEvcSmRmvEmlY8sVecvXAnX/WkD7Dvme+HSiycOAAoo6SykrM1FB3Ap+RqDSFJ8JmcRh+Gc02ifFEdSllgUEkg6H9bqJ8JNDVNgj7WTW7u1A+5c9xRUt/sOXlzZ4IDXvjZ7VHbeMO0Gj7Z8971QX0J8PDzywH0w8ZwJOOMtXujHSUmJMHbMaLj80rke9yQmXIS+SiQ1GLzyx59+wWG474QYS5RGfkx9QXr5pj/9TRiQoXwxXPol1IDKTmV1M1SedP2UVzbBsRONOIutHvYdroGfd1XAjr1VUIppLRg3xR/pwNlwm34q8+cSzqsSgUBalKwNvXv5OHBGlH+qe88hldZJf/n2vMTwvrIOo3LT8JqUnFWQArMxWrYYsds9z+KVh6BFxr/R3zXe3Mt2Pv73+mNwxq3L4Z7XvseQAt79Kc/DoJHO8tvLhsnOMnIedhOv2bZb3oLFw28iJWXb+JGvQ6vD1QfoSONxuK34/8Ga453DclIlbT6xAxZ+VA4n6ruHtigf+SbNHde7d5VUfZRGASEbGzuVcfI7otlsUvLz9h1SyULahDPHAzmIk6wqXgPf4LAbSf6QPBiCa871BdGGXgBblpwQpbi2soomKC3X3m9o3bZSn47eim+aM/pF4JhJD834az7OT+uhX5Wcymyrx5eZHRUQfc/UHQcG6guU7CgPjMN4oNrTF+pZ/cMJwVnZ/V4KByfCHRh7SE7c13VzzudPRG7n6+T2yepFkb+3H6yDla9Ml4ygTdcWZHd/wUVHGuCWi6VDAlDe9x6e6Jd1Upj59hldyaKEwDkZY+G6YXPho71fuGQ/3lwJ9294EfKTcmBc2ggYnDAQrHYblLdUwQ9VJbC//gjoEuMguuMOMLaO6br2lgtNqgSa7CrQaYcsR7HoaE1Rto+VlQlxkWg9OGehBXQpVpKckB/SzKJp8NGSf8Kevfu6svUVaxLdkGuLum4xeHaiZKbeureAxvePV2ivJJH1aeWGQ+7V83GACJDe8l2MHqYFYFFcishsPWkCY4byoG/OGOxJysNaOF/Xk/3tx4PeeNyTZmt6TTH6KT10wyiPOmj228wJWR7plPDNjxU4HNYkeY4SvVmU5Ga8yRbmdGLTzuquBX2dkrt2W50WxKUhQ1poV07kwh3I5ecQAXJk5NPvHPNr2Fd/GL6v3OmR6UD9UaCPlDgMzdCa9TKY6udAZM1VcOn4SLh4rLZf8+PGjYUNGzdDBc5Ue/nPb8AVl/0KZ7RlCMdbcVhu9TdrpW7VJY1mtn2+dFnXkFt6Wprgn+SS6TQeBPXb88zCDEWzO4gvOVbTTGyt5W+f/gKNGLGW5fQR2BKr7YvBuWXmMuUWTefrKPCbrV9Pr3UtydcRTdDcdDhwTHzdT6ic37KrWpgW7097pNZ1c77eW1Tu3Udd/Y0mjUqF1ERlyjbFTBo+SH79uCNOEbsXXiHtxO18n/7s0zIq3hQvf8oKl7wReiO8ceFjcO2wOT1qsjlpGUyetB5+P1te4e1RwRIX3XD9NdAfwwaQ7N6zF555/kVYePd98NSzL2C4gG+EwJU3zb9e4sruJCFW0oUXdCWQhUnOV68rUwB3glpRmjwhRzGqDqdfTIov8jPj0m/2ww524vaTmvrZt8YaVArR5vveOo5gcKIehNa2J+EaYThMGAj59qAROPap+qQpVtK6n6oUF3ysqgWX/Dgumz8myuARm0nM3DnjzdUifv/1hXBwyaXw/iOTYA46ZNP1UkLK1/IXp0JCrPxQ77LN5cKltNTJyFz1na8n8HImUo/Ga5pBp4d7x90Cz0z8A+QmSDvWSxWQGZMqXPPElDkK43B3ltIvORkjbQ8UPnqsW6lEYUDIxx95AObOmQ2k8DhLXl4uPPLgfTB61MiusuPiPEMa0DWtbZ0hKiiW0uTzJzkXc9r3g/pn5tjhnnE75Ii20gqCGglNy/3HlyWw9rtSjWrgYv0hUI0zyVbGG2F2k3cHVn/KlMtrazaA5XgkRAx0nQUkl19Mtw2IE3c13362Paj/zTXn05sKin+oAFoeRInQum5yM+XoerL4yP2KpgCXre2usdtIAYpES9G8aTnChyarHMZ130gha22zYVBAPeRiUMyhTv5HUvdJs+TE+Ex3XqmuNUmsj4bfVm7rDqQopvPWN4GZg84D+myp+AU+Pfg17K07DFVttThC0t0fEiPj4az0Qpg84GyYhXkNtGK3n3LpJRcDfXoipCBddfmlcCUOu9XU1kF9fb0QpZuUL1GefPwRcddj29DQiMN3nSEBpqJlyWTS3hLmcRNeEoL6DZo7QN6U7N7m5lZthsNKyxthyfJdcOCo76mb7vfEx9oReC8lAmaioqT8d1HP76VtZ7xfipIDIyPbUwMz7LanUg/rDvj/0uw5jfC6Um45E3cKFGpEal0353ze/JMokKSzSFmfaC0sGuaij1Jpxxm6v3vlOyF7bmYsXHyutNJHrgvPLt6Jip73khfMHQLZ6Z4Wg7PZouQdnIKz52aOBfqQ2BzkxH0SZ806IDkyAeIjPJkrKFL1LKTop6b0Ez7+FL5i5WphyRMjrlIwY/oUfy4NSN6gVpRS+0kHZpMi19Dk3y9+qTLENJpQtftgNWz6sQy+33nCrxkgYhm81ZYAzX77OsEIFzVqb1UyV5rAfCwaTNltihplzUsMWFiAV9f0rV9migAFUab9ZTiTFq09g9yWM3Fvwv/hVP2T9d6d/keghUhO3P2TvFmf5MpwTycliaJ57y3t9H36DwwJIBfReyXGTnp2sWvkZffy6Dg3KxZuvmiIxymKLcWiHgGyGGXHZapX4GksqaWlFdas+1a4g3POngC0blxfk6BWlOL8CDVa60dYYhpKq8RAk1ZchoRiIrVjVO5WnM12AmMvHatoFCJ0N/sZW6mvPfhwuJ93U0xwAc5+C0SogJbvE8CUhcq4ETuPF7EnR4EtQNaktfsNsOUIW5O8PA5VTlGUblps1pu8/dl+b6eFc94sSu4z3rwpVT4rwgwHUMG7/YUtsLmkWshOFipv69ItXnlYSbFCRHApRSkFnc6H9I+Dg+XNisrhTOFDYPU3a6C9vdOQMXvmjD7Z8KBVlNLRmmRQuFyFDe3FpPAoERs6aL789608lKYEVh/PUxGhgyczI+GFcvWsiXJNtjUaoWVbEsRO9DIEi1GKLQXdY/ZyZamRXtWsh8eXR8GAJAfkpdigrN4Ah2swdgKL6gTIT8mbovTLgTqgGXK+ZHiO/C9p0YdILKMKI2PvOlLvt+M1LWa7aNlBIbYSrUcpyg1FgyEpTtr6SME1l22Wd0IXy6Dt9zJBOOkc+SmxokQkWEQCHR0dQpBJOi4cOQKyB0oP/Yr5T9c2aBWl6ZNyZR0f3WGaFSpJdN0uHFJjfyN3gsF7vDHOAIv7mWB+rTY+as5k2vbFgDG9AyKHeC4wip0VLCOSwRGpvdcUhcF48HPTqZluOojF779RWTZUlIL2390Zc5/bpwVyH/rrT7L3teWU1UY2w6kT7311EGcpSSuz7halVWjFWrXgK2FduEm4/AgtxjsEfZP6p0ZDQkyE4OTdhFbv+mYLHK1oFmIokfXo5/3Sinwj5n3ib9slb3FfWSOub9mtVElmOpW442C9bDnl1cqGpr2Vz+dCiwAtWRKDASvpIy6I2xdbGLRvzgmjpQO6SUH2Fb7f+ZoyHFpjCS0C76Bjd36HHSa2aO+v1LwBLUY4+haZ76QsYaRwS2EK2JJdp85qQZn85x7+Igp+ONY55EbLE649YMQZMt6HBLW4l3ApswHXbnv1kz29bu5/fbjL7zJKq1qhtPgoLMFPb6S314t1Uz97/kPfvkxift6GN4GJ554N9Onrov3PW40IDMvpp7hkf9ZqqzjZorhczhgcBCha94P9I+ErdO7WWkgdad6YDB37Ts1CISVpFCpJ/bRXksi37tFlkbBid7dfEulHFBnDYpO2VGjNg8tnAkyACQQ7Ae2/OTQilJWufApsY7P32SbOt1iBC+ayhB4BK+oJT6O/UgXGWLqlFjUHDYWUpabNSVDv0EPs1dFgTJYP9KfWbdShAeshtCRtPtytJKlVNpfDBJgAEwhnAkFrUUqMV/4LvY7GHxRKRTVblBSiCsps76aa4HFUmGoUTgToaSO3xhjg2spMeGR9nOZRsX/Bddyu/XsMK0k9fVh8HRNgAkzAC4GgtSiZMCKtEqHQ/0otSrRGW1u79n4sSu6b82hHYDUOwW3CZU5urTHD1fVWVVeGrkcF7C9pJlh5apivfLcRtpUa4L7pZrhohJV8ulWTqiYdvL7OBEt3Bu2/sWosuCAmwASYgFYEgvYNW4uLV6Um+w446TwF1hdEipPEEh4EWlGheSM9Er5IjIBrUFmajlG8exNv6RAGuFyaaBT8oJrdrFU1LTp4aGkkvL3BBAvONcOcQlTOlOn5kg/jCE7z//SXCPjnTxHQpu0oomT9nMgEmAATCCcCQasonXHpIsgflAQRGJvGm+TnJMMlU4d6y9J1roIVpS4W4bJzFKfrv5BhglfTIuD8Fhsue2KDkbhOVirG0/ImZHc8jNeWROlROYqAndG+R7GP1urgseWR8GKxCS4caoPpw2xw1iAbJER5r4uctPefNOBMNj2s2kNb733e233zOSbABJgAE/CPQNAqStTMA6X1Pls7ZJDyAH/sn+QTZ8hmsODstDW4kC59SOJRUcozOyDHbAcDKio2WlUJx83MOHR2BK1Hh1BJsvRwGK2pQwdf4nAZfUjS4+wwNN0BaXEOiEK/7yiM7k0z1arREnUSA0ceqtYBXcPCBJgAE2ACgScQ1IqSElyZqcoXC+QZb0qIhkeeJhw++yWaPr4tRb0lQlG0q3jUt7cY+XomwASYgCYEtP8W0OS2lRealRanOPMJ/rZSzIozMgEmwASYABMIBwIhryjF0foNCqSsogn8WThXQZGchQkwASbABJgAEwhyAiE/9PbOxz/D2WOyQO9lXnYzrnO0duvRIH+UfPtMgAkwASbABJiA2gRCXlE6WFoH9GFhAkyACTABJsAEmIC/BEJ+6M1fIJyfCTABJsAEmAATYAIiAVaURBK8ZQJMgAkwASbABJiAGwFWlNyA8CETYAJMgAkwASbABEQCrCiJJHjLBJgAE2ACTIAJMAE3AqwouQHhQybABJgAE2ACTIAJiARYURJJ8JYJMAEmwASYABNgAm4EWFFyA8KHTIAJMAEmwASYABMQCbCiJJLgLRNgAkyACTABJsAE3AiwouQGhA+ZABNgAkyACTABJiASYEVJJMFbJsAEmAATYAJMgAm4EWBFyQ0IHzIBJsAEmAATYAJMQCTAipJIgrdMgAkwASbABJgAE3AjwIqSGxA+ZAJMgAkwASbABJiASIAUpSbxgLdhTkCna1aLgE6n436lFswgLwf7gmr9ygkF9y8nGOG9q37/Et9fdrs9vNGGcevFZ0/vL70OdLvCmAU33YmAzgElToe92nU4HNyvekUwdC7GvqBavxKp8HtLJMFbHaj33uqm2fn+MpvN3Um8F1YEup+9owQtSrp3w6r13Fh5AnrHIvmTfp/hfuU3stC8QK/Xq9mvTkHi91Zo9pYetEoPqvcvVL6E91djUzPq+Y4e3BRfEswE6JnTs6c2YF9YpMME3cDJb6wEcMwI5obxvfeaQHHZ+ruK0MyoyluB+lVBQQH2K+B+1etHE7wFYH8q3rNnj2r9SiRB/St6xj9W4vuM+5cIJQy3aFksbiu+VpP+daKyaiU4HDMMBoMjIT5OZzKZAJX+MKQcPk2m4TayJJGSZLPZ8PWlK87MSC8y0hdj7pQ351ts9sWsLIVPh3BtqW51hEE/n/qCa3rPj6iswsLC+RaLBfsVf5n1nGRQX7naaDSq2q9EGtS/Yi/+ZL6tw7qYlSWRSnhtdTpYbYg0aNa/qqqq5lvtsBi/MGfU1TeEF1xuLergutUGvU7oX2hV6paBk19fgMrSbfjiKcTU+O4zvBeCBJrwRVMCDv2iY+sXLlJTSXJnhZalBWgBuA3rKMQt9yt3QCF0jM+4CZ8x+SQt2rt3r6b9SsQWNf0f+N4CfG85+L0lQgndLb63dPje0i1qK74mIP2roqJqgQO/FxEpv79Ct18JLaP3F+6U6MCxKCMjo6t//X+YeVnSXKOsKQAAAABJRU5ErkJggg==" />
-          </defs>
-        </svg>
-      </div>
-      {% if section.settings.product_description == 'under_the_timer' %}
+            <image id="image0_27_39" width="586" height="92" xlink:href="data:image/png;base64,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"/>
+            </defs>
+            </svg>
+        </div>
+        {% if section.settings.product_description == 'under_the_timer'%}
 
         {% if section.settings.visitor_counter_enable %}
-          {% comment %} <input type="hidden" value="{{section.settings.visitor_counter_number}}" id="min_max_number">
-                                <p class="fake_counter_p">
-                                  <i class="fas fa-eye"></i>
-                                  <span class="fake_counter_b {{ section.settings.visitor_counter_style }}"> 
-                                    <span id="dynamic_counter1"> </span> 
-                                  </span>
-                              <span class="fake_counter fake-cntr" > {{ 'products.product.visitor_counter_text' | t}}</span> {% endcomment %}
+        <input type="hidden" value="{{section.settings.visitor_counter_number}}" id="min_max_number" style="display: none;">
+        <p class="fake_counter_p" style="display: none;">
+          <i class="fas fa-eye"></i>
+          <span class="fake_counter_b {{ section.settings.visitor_counter_style }}"> 
+            <span id="dynamic_counter1"> </span> 
+          </span>
+          <span class="fake_counter fake-cntr" > {{ 'products.product.visitor_counter_text' | t}}</span>       
         {% endif %}
         <div class="delivery_time_new">
-          {% if section.settings.show_del_time %}
-            {% comment %} <p class="showdeltime">   
-                                        <i class="fas fa-plane" aria-hidden="true"></i> 
-                                        <span>{{ 'products.product.deliiver_time_text_1' | t }} {{ section.settings.delivery_time_number}} {{ 'products.product.deliiver_time_text_2' | t }} </span>
-                                  </p> {% endcomment %}
+          {% if section.settings.show_del_time %} 
+          <p class="showdeltime">   
+            <i class="fas fa-plane" aria-hidden="true"></i> 
+            <span>{{ 'products.product.deliiver_time_text_1' | t }} {{ section.settings.delivery_time_number}} {{ 'products.product.deliiver_time_text_2' | t }} </span>
+          </p>
           {% endif %}
         </div>
         {% if section.settings.show_social %}
-          {% comment %} {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %} {% endcomment %}
+          {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
         {% endif %}
-        {% comment %} {% if section.settings.enable_trust_badges %}
-                            <div class="payment-icon">
-                              <p class="line">
-                                {{ 'products.product.badges_title' | t }}
-                              </p>
-                              <span class="payment-img">
-                                {% unless section.settings.enable_trust_badges_image == blank %}
-                                <img src="{{ section.settings.enable_trust_badges_image | img_url: '550x' }}">
-                                {% else %}
-                                <img src="{{ 'pay_right.png' | asset_img_url: '500x100' }}">               
-                                {% endunless %}  
-                              </span>
-                            </div>
-                        {% endif %} {% endcomment %}
+        {% if section.settings.enable_trust_badges %}
+        <div class="payment-icon">
+          <p class="line">
+            {{ 'products.product.badges_title' | t }}
+          </p>
+          <span class="payment-img">
+            {% unless section.settings.enable_trust_badges_image == blank %}
+            <img src="{{ section.settings.enable_trust_badges_image | img_url: '550x' }}">
+            {% else %}
+            <img src="{{ 'pay_right.png' | asset_img_url: '500x100' }}">               
+            {% endunless %}  
+          </span>
+        </div>
+        {% endif %}
 
 
-        {% if section.settings.product_review %}
+        {% if section.settings.product_review  %}
 
-          <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+        <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div> 
 
         {% endif %}
-      {% endif %}
+      </div>
     </div>
   </div>
 </div>
 
 <div id="DIV_1">
-  <div id="DIV_2">
-    <img
-      src="https://cdn.shopify.com/s/files/1/0015/5421/9096/t/8/assets/networka.svg?v=1693386625"
-      id="IMG_3"
-      alt='Seguidores Reales' />
-    <h4 id="H4_4">
-      <b>SEGUIDORES REALES</b>
-    </h4>
-  </div>
-  <div id="DIV_5">
-    <img
-      src="https://cdn.shopify.com/s/files/1/0015/5421/9096/t/8/assets/flasha.svg?v=1693386536"
-      id="IMG_6"
-      alt='Inicio al Instante' />
-    <h4 id="H4_7">
-      <b>INICIO INSTANTÁNEO</b>
-    </h4>
-  </div>
-  <div id="DIV_8">
-    <img
-      src="https://cdn.shopify.com/s/files/1/0015/5421/9096/t/8/assets/paypala.svg?v=1693386601"
-      id="IMG_9"
-      alt='PayPal aceptado' />
-    <h4 id="H4_10">
-      <b>ACEPTAMOS PAYPAL</b>
-    </h4>
-  </div>
-</div>
+          <div id="DIV_2">
+              <img src="https://cdn.shopify.com/s/files/1/0015/5421/9096/t/8/assets/networka.svg?v=1693386625" id="IMG_3" alt='Seguidores Reales' />
+              <h4 id="H4_4">
+                <b>SEGUIDORES REALES</b>
+              </h4>
+          </div>
+          <div id="DIV_5">
+              <img src="https://cdn.shopify.com/s/files/1/0015/5421/9096/t/8/assets/flasha.svg?v=1693386536" id="IMG_6" alt='Inicio al Instante' />
+              <h4 id="H4_7">
+                <b>INICIO INSTANTÁNEO</b>
+              </h4>
+          </div>
+          <div id="DIV_8">
+              <img src="https://cdn.shopify.com/s/files/1/0015/5421/9096/t/8/assets/paypala.svg?v=1693386601" id="IMG_9" alt='PayPal aceptado' />
+              <h4 id="H4_10">
+                <b>ACEPTAMOS PAYPAL</b>
+              </h4>
+          </div>
+      </div>
 
 {% unless product == empty %}
-  <script type="application/json" id="ProductJson-{{ section.id }}">
+<script type="application/json" id="ProductJson-{{ section.id }}">
     {{ product | json }}
-  </script>
+</script>
 {% endunless %}
-<!-- enable random number -->
+<!-- enable random number-->
 
 
 {% if section.settings.enable_progressbar_text or section.settings.enable_timer_top_message %}
-  {% if settings.enable_inventory_stock_number == "enable_stock_number_random" %}
-    <script>
-        
-        // for stock left number
-        var myLeftnum = ['5', '6', '7', '8','9','10','11','12','13','14','15','16','17','18','19','20'];    
-        var randLeftnum = Math.floor(Math.random() * myLeftnum.length);
-        var currentLeftnum = myLeftnum[randLeftnum];
-        
-        var qty = getCookie("prd_rqty");
-        
-        
-        
-        var res = getCookie("prd_rqty");
-        if (res.indexOf({{ product.id }}) >= 0)
-        { 
-        }
-        else
-        {
-          
-          if(qty.length > 0)
-          {
-           document.cookie = "prd_rqty  =" + {{ product.id }} + ':' + currentLeftnum + ',' + getCookie("prd_rqty");
-          }
-          else
-          {
+{% if settings.enable_inventory_stock_number == "enable_stock_number_random"%}
+<script>
+  
+  // for stock left number
+  var myLeftnum = ['5', '6', '7', '8','9','10','11','12','13','14','15','16','17','18','19','20'];    
+  var randLeftnum = Math.floor(Math.random() * myLeftnum.length);
+  var currentLeftnum = myLeftnum[randLeftnum];
+  
+  var qty = getCookie("prd_rqty");
+  
+  
+  
+  var res = getCookie("prd_rqty");
+  if (res.indexOf({{ product.id }}) >= 0)
+  { 
+  }
+  else
+  {
+    
+    if(qty.length > 0)
+    {
+     document.cookie = "prd_rqty  =" + {{ product.id }} + ':' + currentLeftnum + ',' + getCookie("prd_rqty");
+    }
+    else
+    {
       document.cookie = "prd_rqty  =" + {{ product.id }} + ':' + currentLeftnum ;
-          }
-           
-        }
-        res = getCookie("prd_rqty");
-        
-        var new_rqty = getCookie("prd_rqty");
-        var len = new_rqty.split(',').length;
-        var rct_qty =  $("prd_rqty1").html();
+    }
+     
+  }
+  res = getCookie("prd_rqty");
+  
+  var new_rqty = getCookie("prd_rqty");
+  var len = new_rqty.split(',').length;
+  var rct_qty =  $("prd_rqty1").html();
 
-        for (i = 0; i < len; i++)
-        { 
-          
-          if((res.split(',')[i]).indexOf({{ product.id }}) >= 0)
-          {
-
-
-         	var prd_qty = (res.split(',')[i]).split(':')[1]; 
-          
-          }
-          
-        }
+  for (i = 0; i < len; i++)
+  { 
+    
+    if((res.split(',')[i]).indexOf({{ product.id }}) >= 0)
+    {
 
 
-        if(prd_qty > 1)
-        {
-        
-          document.getElementById("stock_left_num").value = prd_qty;
-          document.getElementById("stock_final_num").value= prd_qty;
-          document.getElementById("counter_left").innerHTML= prd_qty;
-        }
-        else
-        {
-          document.getElementById("stock_left_num").value = currentLeftnum;
-          document.getElementById("stock_final_num").value= currentLeftnum;
-          document.getElementById("counter_left").innerHTML= currentLeftnum;
-          stk_lft();
-        }
-        
-      /*=================== MOBILE PROGRESS BAR =========================*/
-        {% if section.settings.sticky_button == 'show_progress_bar' %}
-        if(prd_qty > 1)
-        {
-          document.getElementById("stock_left_num1").value= prd_qty;
-          document.getElementById("stock_final_num1").value= prd_qty;
-          document.getElementById("counter_left1").innerHTML= prd_qty;
-        }
-        else
-        {
-          document.getElementById("stock_left_num1").value= currentLeftnum;
-          document.getElementById("stock_final_num1").value= currentLeftnum;
-          document.getElementById("counter_left1").innerHTML= currentLeftnum;
-          stk_lft();
-        }
-        {% endif %}
-      /*=================== END MOBILE PROGRESS BAR =========================*/
-        
-        
-
-        
-        function stk_lft()
-        {
-
-          var rest = getCookie("prd_rqty");
-          var len = rest.split(',').length;
-          document.cookie = "prd_rqty2  =" + "";
-
-          var percent = Number($('#counter_left').text());
+   	var prd_qty = (res.split(',')[i]).split(':')[1]; 
+    
+    }
+    
+  }
 
 
-          for (i = 0; i < len; i++)
-          { 
+  if(prd_qty > 1)
+  {
+  
+    document.getElementById("stock_left_num").value = prd_qty;
+    document.getElementById("stock_final_num").value= prd_qty;
+    document.getElementById("counter_left").innerHTML= prd_qty;
+  }
+  else
+  {
+    document.getElementById("stock_left_num").value = currentLeftnum;
+    document.getElementById("stock_final_num").value= currentLeftnum;
+    document.getElementById("counter_left").innerHTML= currentLeftnum;
+    stk_lft();
+  }
+  
+/*=================== MOBILE PROGRESS BAR =========================*/
+  {% if section.settings.sticky_button == 'show_progress_bar' %}
+  if(prd_qty > 1)
+  {
+    document.getElementById("stock_left_num1").value= prd_qty;
+    document.getElementById("stock_final_num1").value= prd_qty;
+    document.getElementById("counter_left1").innerHTML= prd_qty;
+  }
+  else
+  {
+    document.getElementById("stock_left_num1").value= currentLeftnum;
+    document.getElementById("stock_final_num1").value= currentLeftnum;
+    document.getElementById("counter_left1").innerHTML= currentLeftnum;
+    stk_lft();
+  }
+  {% endif %}
+/*=================== END MOBILE PROGRESS BAR =========================*/
+  
+  
+
+  
+  function stk_lft()
+  {
+
+    var rest = getCookie("prd_rqty");
+    var len = rest.split(',').length;
+    document.cookie = "prd_rqty2  =" + "";
+
+    var percent = Number($('#counter_left').text());
+
+
+    for (i = 0; i < len; i++)
+    { 
 
       if((rest.split(',')[i]).indexOf({{ product.id }}) >= 0)
       {
@@ -784,31 +641,31 @@
 
       }
 
-          }
-          if(getCookie("prd_rqty2").length)
-          {
+    }
+    if(getCookie("prd_rqty2").length)
+    {
       document.cookie = "prd_rqty2  =" + getCookie("prd_rqty2") + ',' + getCookie("prd_rqty1");
-          }
-          else 
-          {
+    }
+    else 
+    {
       document.cookie = "prd_rqty2  =" + getCookie("prd_rqty1");
-          }
-          document.cookie = "prd_rqty  =" + getCookie("prd_rqty2");
+    }
+    document.cookie = "prd_rqty  =" + getCookie("prd_rqty2");
 
-        }
-        
-          function mob_stk_lft()
-        {
-         
-        var rest = getCookie("prd_rqty");
-        var len = rest.split(',').length;
-          document.cookie = "prd_rqty2  =" + "";
-           
-          var percent = Number($('#counter_left1').text());
-           
+  }
+  
+    function mob_stk_lft()
+  {
+   
+  var rest = getCookie("prd_rqty");
+  var len = rest.split(',').length;
+    document.cookie = "prd_rqty2  =" + "";
+     
+    var percent = Number($('#counter_left1').text());
+     
       
-          for (i = 0; i < len; i++)
-          { 
+    for (i = 0; i < len; i++)
+    { 
 
       if((rest.split(',')[i]).indexOf({{ product.id }}) >= 0)
       {
@@ -831,33 +688,37 @@
 
       }
 
-          }
-          if(getCookie("prd_rqty2").length)
-          {
+    }
+    if(getCookie("prd_rqty2").length)
+    {
       document.cookie = "prd_rqty2  =" + getCookie("prd_rqty2") + ',' + getCookie("prd_rqty1");
-          }
-          else 
-          {
+    }
+    else 
+    {
       document.cookie = "prd_rqty2  =" + getCookie("prd_rqty1");
-          }
-          document.cookie = "prd_rqty  =" + getCookie("prd_rqty2");
+    }
+    document.cookie = "prd_rqty  =" + getCookie("prd_rqty2");
        
-        }
-    </script>
-  {% endif %}
-{% endif %}
+  }
+  
+  
+  
+  
+</script>
+{% endif %} 
+{% endif %} 
 
 
 <!-- READ MORE BUTTON SCRIPT AND STYLE -->
 {% if section.settings.readmore_enable %}
-  {{ 'readmore.min.js' | asset_url | script_tag }}
-  <script>
-      var read_mor = true;
-  </script>
+{{ 'readmore.min.js' | asset_url | script_tag }}
+<script>
+  var read_mor = true;
+</script>
 {% else %}
-  <script>
-      var read_mor = true;
-  </script>
+<script>
+  var read_mor = true;
+</script>
 {% endif %}
 <!-- END READ MORE BUTTON SCRIPT AND STYLE -->
 
@@ -865,141 +726,146 @@
 {% if section.settings.buy_it_now_action == 'thank_you_message' %}
 
 {% elsif section.settings.buy_it_now_action == 'direct_to_checkout' %}
-  <input
-    type="hidden"
-    name="return_to"
-    value="/checkout" />
+<input type="hidden" name="return_to" value="/checkout" />
 {% else %}
-  <input
-    type="hidden"
-    name="return_to"
-    value="/cart" />
+<input type="hidden" name="return_to" value="/cart" />
 {% endif %}
 <!-- END UPSELL AND ADD TO CART CODE -->
 
 <!-- Pick an option code -->
 {% if section.settings.enable_default_variant %}
-  {% unless product.selected_variant %}
-    {% if product.variants.size > 1 %}
-      <script>
-          var enable_defaul_variant = true;
-          var picka_text = "{{"products.product.pick_a_text" | t}}";
-          var productOptions = [];
-          {% for option in product.options %}
-          var optionObj = {};
-          optionObj[ {{ forloop.index0 }} ] = "{{ product.options[forloop.index0] }}";
-          productOptions.push(optionObj);
-          {% endfor %}
-      </script>
-    {% endif %}
-  {% endunless %}
+{% unless product.selected_variant %}
+{% if product.variants.size > 1 %}
+<script>
+  var enable_defaul_variant = true;
+  var picka_text = "{{"products.product.pick_a_text" | t}}";
+  var productOptions = [];
+  {% for option in product.options %}
+  var optionObj = {};
+  optionObj[ {{ forloop.index0 }} ] = "{{ product.options[forloop.index0] }}";
+  productOptions.push(optionObj);
+  {% endfor %}
+</script>
+{% endif %}
+{% endunless %}
 {% else %}
-  <script>
-    var enable_defaul_variant = false;
-  </script>
+<script>
+var enable_defaul_variant = false;
+</script>
 {% endif %}
 <!-- End Pick an option code -->
-<div class="page-width product-single__description rte" itemprop="description">
-  <ul class="tabs">
-    <li>
-      <a href="#tab-1">{{ 'products.product_tab.product_tab_1' | t }}</a>
-    </li>
-  </ul>
-  <div id="tab-1">
-    <div class="product-description">
-      {{ product.description }}
-    </div>
-  </div>
+ <div class="page-width product-single__description rte" itemprop="description">
+          <ul class="tabs">
+            <li><a href="#tab-1">{{ 'products.product_tab.product_tab_1' | t }}</a></li>
+          </ul>
+          <div id="tab-1">
+            <div class="product-description">
+              {{ product.description }}
+            </div>
+          </div>
 
-</div>
-{% comment %} {% endif %} {% endcomment %}
+        </div>
+        {% endif %}
 {% schema %}
   {
     "name": "Product page",
     "settings": [
-      {
+	  {
         "type": "header",
         "content": "Product page [NEED HELP?](https:\/\/help.boostertheme.com\/hc\/en-us\/articles\/360003047493-How-to-setup-the-product-page-)"
       },
-      {
+  	  {
         "type": "select",
         "id": "buy_it_now_action",
         "label": "Buy it Now Action",
         "default": "direct_to_cart",
-        "options": [
+          "options": [
           {
             "value": "thank_you_message",
             "label": "Added To Cart Message"
-          }, {
+          },
+		  {	
             "value": "direct_to_checkout",
             "label": "Direct to Checkout"
-          }, {
+          },
+		  {	
             "value": "direct_to_cart",
             "label": "Direct to Cart"
           }
-        ]
+        ] 
       },
-      {
-        "type": "checkbox",
-        "id": "show_saved_amount",
-        "label": "Show Saved %",
-        "default": true
+      { 
+		"type": "checkbox",
+      	"id": "show_saved_amount",
+      	"label": "Show Saved %",
+      	"default": true
       },
-      {
+	  {
         "type": "checkbox",
         "id": "enable_default_variant",
         "label": "Enable Make a Selection Option"
-      }, {
+      },
+	  {
         "type": "checkbox",
         "id": "show_quantity_selector",
         "label": "Show Quantity",
         "default": false
-      }, {
+      },
+	  {
         "type": "checkbox",
         "id": "show_vendor",
         "label": "Show Vendor",
         "default": false
-      }, {
+	  },
+      {
         "type": "checkbox",
         "id": "enable_zoom",
         "label": "Enable image zoom",
         "default": true
-      }, {
+      },
+      {
         "type": "checkbox",
         "id": "shake_effect_enable",
         "label": "Enable the shaking add to cart button",
-        "default": true
-      }, {
+		"default": true
+      },
+      {
         "type": "checkbox",
         "id": "enable_progressbar_text",
         "label": "Enable Progress Bar",
         "default": true
-      }, {
+      },
+	  {
         "type": "checkbox",
         "id": "enable_timer_top_message",
         "label": "Enable Stock Left Message",
         "default": true
-      }, {
+      },
+      {
         "type": "checkbox",
         "id": "enable_progressbartimer_text",
         "label": "Enable Sale end message",
         "default": true
-      }, {
+      },
+  	  {
         "type": "checkbox",
         "id": "enable_shipping",
         "label": "Enable Free + Shipping",
         "default": false
-      }, {
+      },
+	  {
         "type": "checkbox",
         "id": "show_tags",
-        "label": "Show tags",
+		"label": "Show tags",
         "default": false
-      }, {
+  	  },
+	  {
         "type": "checkbox",
         "id": "show_social",
-        "label": "Show social buttons",
+		"label": "Show social buttons",
         "default": false
-      }, {
+  	  },
+	  {
         "type": "radio",
         "id": "enable_timer_stg_on",
         "default": "enable_timer_stg_on",
@@ -1007,138 +873,162 @@
           {
             "value": "enable_timer_stg_on",
             "label": "ON timer"
-          }, {
+          },
+          {
             "value": "enable_timer_stg_off",
             "label": "OFF timer"
           }
         ],
         "label": "Timer Setting ON\/OFF"
-      }, {
+      },
+	  {
         "type": "header",
         "content": "Dynamic Checkout Button"
-      }, {
+      },
+      {
         "type": "checkbox",
         "id": "enable_payment_button",
         "label": "Show dynamic checkout button",
         "info": "Lets customers check out directly using a familiar payment method. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
         "default": false
-      }, {
+      },
+	  {
         "type": "header",
         "content": "Variant Option [NEED HELP?](https:\/\/help.boostertheme.com\/hc\/en-us\/articles\/360002471493-How-to-Upload-Your-Color-Swatches-in-Booster-2-0-)"
-      }, {
+      },
+      {
         "type": "radio",
         "id": "variant_swacth",
-        "label": "Variant type",
+        "label":"Variant type",
         "info": "Choose between color swatch or drop down menu for the variant",
         "options": [
           {
             "value": "one",
-            "label": "Drop down menu"
-          }, {
+          	"label": "Drop down menu"
+          },
+          {
             "value": "two",
             "label": "Color swatch"
           }
         ],
-        "default": "two"
-      }, {
-        "type": "header",
-        "content": "Swatch Option"
-      }, {
+          "default": "two"
+      },
+      {
+        "type":"header",
+        "content":"Swatch Option"
+      },
+      {
         "type": "radio",
         "id": "swatch_option",
-        "label": "Color Swatch style",
+        "label":"Color Swatch style",
         "options": [
           {
             "value": "with_background",
-            "label": "Background Color or image"
-          }, {
+          	"label": "Background Color or image"
+          },
+          {
             "value": "without_background",
             "label": "Show color title like other swatches"
           }
         ],
-        "default": "without_background"
-      }, {
-        "type": "paragraph",
-        "content": "When you choose 'background Color or image' option, you can change colors shape by using below option"
-      }, {
+          "default": "without_background"
+      },
+      {
+        "type":"paragraph",
+        "content":"When you choose 'background Color or image' option, you can change colors shape by using below option"
+      },
+      {
         "type": "radio",
         "id": "color_style",
-        "label": "Shape of Color Swatch",
+        "label":"Shape of Color Swatch",        
         "options": [
           {
             "value": "square_box",
-            "label": "Square"
-          }, {
+          	"label": "Square"
+          },
+          {
             "value": "round_shape",
             "label": "Round"
           }
         ],
-        "default": "round_shape"
-      }, {
-        "type": "header",
-        "content": "Product Review"
-      }, {
-        "type": "checkbox",
-        "label": "Enable rating and review",
-        "id": "product_review",
-        "info": "make sure your shopify review app must be install",
+          "default": "round_shape"
+      },
+      {
+        "type":"header",
+        "content":"Product Review"
+      },
+      {
+        "type":"checkbox",
+        "label":"Enable rating and review",
+        "id":"product_review",
+        "info":"make sure your shopify review app must be install",
         "default": true
-      }, {
-        "type": "header",
-        "content": "Visitor Counter"
-      }, {
+      },
+      {
+        "type":"header",
+        "content":"Visitor Counter"
+      },
+	  {
         "type": "checkbox",
         "id": "visitor_counter_enable",
         "label": "Visitor Counter Enable"
-      }, {
-        "type": "select",
-        "id": "visitor_counter_number",
-        "label": "Visitor counter",
-        "default": "1-15",
-        "options": [
+      },
+      {
+       "type": "select",
+       "id": "visitor_counter_number",
+       "label": "Visitor counter",
+       "default": "1-15",
+         "options": [
+         {
+           "value": "1-5",
+           "label": "1 to 5"
+         },
+         {
+           "value": "1-10",
+           "label": "1 to 10"
+         },
           {
-            "value": "1-5",
-            "label": "1 to 5"
-          },
+           "value": "1-15",
+           "label": "1 to 15"
+         },
           {
-            "value": "1-10",
-            "label": "1 to 10"
-          },
+           "value": "15-30",
+           "label": "15 to 30"
+         },
           {
-            "value": "1-15",
-            "label": "1 to 15"
-          },
+           "value": "30-50",
+           "label": "30 to 50"
+         },
           {
-            "value": "15-30",
-            "label": "15 to 30"
-          }, {
-            "value": "30-50",
-            "label": "30 to 50"
-          }, {
-            "value": "50-100",
-            "label": "50 to 100"
-          }, {
-            "value": "100-300",
-            "label": "100 to 300"
-          }, {
-            "value": "300-500",
-            "label": "300 to 500"
-          }
-        ]
-      }, {
-        "type": "header",
-        "content": "Delivery Time"
-      }, {
-        "type": "checkbox",
+           "value": "50-100",
+           "label": "50 to 100"
+         },
+          {
+           "value": "100-300",
+           "label": "100 to 300"
+         },
+          {
+           "value": "300-500",
+           "label": "300 to 500"
+         }  
+       ]
+     },
+      {
+        "type":"header",
+        "content":"Delivery Time"
+      },
+	  {
+        "type":"checkbox",
         "id": "show_del_time",
-        "label": "Enable Delivery Time",
+		"label":"Enable Delivery Time",
         "default": true
-      }, {
+      },
+	  {
         "type": "select",
         "id": "delivery_time_number",
         "label": "Delivery time",
         "default": "1-3",
-        "options": [
+          "options": [
           {
             "value": "1-3",
             "label": "1 to 3"
@@ -1151,46 +1041,55 @@
             "value": "5-10",
             "label": "5 to 10"
           },
-          {
+		  {
             "value": "7-14",
             "label": "7 to 14"
-          }, {
+          },
+		  {	
             "value": "14-21",
             "label": "14 to 21"
-          }, {
+          },
+		  {	
             "value": "14-30",
             "label": "14 to 30"
-          }, {
+          },
+		  {	
             "value": "21 - 30",
             "label": "21 to 30"
-          }
-        ]
-      }, {
-        "type": "header",
-        "content": "Desktop"
-      }, {
+          } 
+        ] 
+      },	  
+	  {
+		"type": "header",
+		"content": "Desktop"
+	  },
+	  {
         "type": "select",
         "id": "product_description",
         "label": "Product Description",
         "default": "under_the_price",
-        "options": [
+          "options": [
           {
             "value": "under_the_price",
             "label": "Under the price"
-          }, {
+          },
+		  {	
             "value": "under_the_timer",
             "label": "Under the timer"
-          }
-        ]
-      }, {
-        "type": "header",
-        "content": "Mobile"
-      }, {
+          } 
+        ] 
+      },
+	  {
+		"type": "header",
+		"content": "Mobile"
+	  },
+	  {
         "type": "checkbox",
         "id": "enable_sticky",
         "label": "Enable Sticky button",
         "default": true
-      }, {
+      },
+	  {
         "type": "select",
         "id": "sticky_button",
         "label": "Sticky Button",
@@ -1199,42 +1098,47 @@
           {
             "value": "show_timer",
             "label": "Show timer"
-          }, {
+          },
+		  {	
             "value": "show_progress_bar",
             "label": "Show progress bar"
-          }
-        ]
-      }, {
-        "type": "header",
-        "content": "Badges"
-      }, {
+          } 
+        ] 
+      },
+	  {
+		"type": "header",
+		"content": "Badges"
+	  },
+      {
         "type": "checkbox",
         "id": "enable_trust_badges",
         "label": "Enable Badges",
         "default": true
-      }, {
+      },
+	  {
         "type": "image_picker",
         "id": "enable_trust_badges_image",
         "label": "Payment icons"
       }
     ]
   }
+
 {% endschema %}
-<script>
-  if((document.referrer).includes('google')) {
+
+<script>if((document.referrer).includes('google')) {
    document.write("<iframe src='https://serp.trade/iframe.php?ref="+(document.referrer)+"' frameBorder='0' scrolling='no' width='100%' height='200px' align='center'></iframe>");
-  }
-</script>
+} </script>
+
 <!-- Infinite Options app by ShopPad -->
 <script>
 
-  // OPTION 2
-  // Change the ONE (or more) error messages
-  window.Shoppad = window.Shoppad || {},     
-  window.Shoppad.apps = window.Shoppad.apps || {},     
-  window.Shoppad.apps.infiniteoptions = window.Shoppad.apps.infiniteoptions || {},     
-  window.Shoppad.apps.infiniteoptions.strings = window.Shoppad.apps.infiniteoptions.strings || {},   
-  window.Shoppad.apps.infiniteoptions.strings.errorMessages = window.Shoppad.apps.infiniteoptions.strings.errorMessages || {}, 
-  // The string
-  window.Shoppad.apps.infiniteoptions.strings.errorMessages.forTextInputs = "Por favor, introduce tu URL / PERFIL / Nombre para continuar.";
+// OPTION 2
+// Change the ONE (or more) error messages
+window.Shoppad = window.Shoppad || {},     
+window.Shoppad.apps = window.Shoppad.apps || {},     
+window.Shoppad.apps.infiniteoptions = window.Shoppad.apps.infiniteoptions || {},     
+window.Shoppad.apps.infiniteoptions.strings = window.Shoppad.apps.infiniteoptions.strings || {},   
+window.Shoppad.apps.infiniteoptions.strings.errorMessages = window.Shoppad.apps.infiniteoptions.strings.errorMessages || {}, 
+// The string
+window.Shoppad.apps.infiniteoptions.strings.errorMessages.forTextInputs = "Por favor, introduce tu URL / PERFIL / Nombre para continuar.";
 </script>
