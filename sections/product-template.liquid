@@ -449,13 +449,13 @@
         {% if section.settings.product_description == 'under_the_timer'%}
 
         {% if section.settings.visitor_counter_enable %}
-        <input type="hidden" value="{{section.settings.visitor_counter_number}}" id="min_max_number">
+        {% comment %} <input type="hidden" value="{{section.settings.visitor_counter_number}}" id="min_max_number">
         <p class="fake_counter_p">
           <i class="fas fa-eye"></i>
           <span class="fake_counter_b {{ section.settings.visitor_counter_style }}"> 
             <span id="dynamic_counter1"> </span> 
           </span>
-          <span class="fake_counter fake-cntr" > {{ 'products.product.visitor_counter_text' | t}}</span>       
+          <span class="fake_counter fake-cntr" > {{ 'products.product.visitor_counter_text' | t}}</span>        {% endcomment %}
         {% endif %}
         <div class="delivery_time_new">
           {% if section.settings.show_del_time %} 
