@@ -449,33 +449,7 @@
           {% endif %}
         </div>
         {% if section.settings.product_description == 'under_the_timer'%}
-        
-        
-        
-        <div id="DIV_1">
-          <div id="DIV_2">
-              <img src="https://cdn.shopify.com/s/files/1/0015/5421/9096/t/8/assets/networka.svg?v=1693386625" id="IMG_3" alt='Seguidores Reales' />
-              <h4 id="H4_4">
-                <b>SEGUIDORES REALES</b>
-              </h4>
-          </div>
-          <div id="DIV_5">
-              <img src="https://cdn.shopify.com/s/files/1/0015/5421/9096/t/8/assets/flasha.svg?v=1693386536" id="IMG_6" alt='Inicio al Instante' />
-              <h4 id="H4_7">
-                <b>INICIO INSTANTÁNEO</b>
-              </h4>
-          </div>
-          <div id="DIV_8">
-              <img src="https://cdn.shopify.com/s/files/1/0015/5421/9096/t/8/assets/paypala.svg?v=1693386601" id="IMG_9" alt='PayPal aceptado' />
-              <h4 id="H4_10">
-                <b>ACEPTAMOS PAYPAL</b>
-              </h4>
-          </div>
-      </div>
-        
-        
-        
-       
+
         {% if section.settings.visitor_counter_enable %}
         <input type="hidden" value="{{section.settings.visitor_counter_number}}" id="min_max_number">
         <p class="fake_counter_p">
@@ -521,6 +495,28 @@
     </div>
   </div>
 </div>
+
+<div id="DIV_1">
+          <div id="DIV_2">
+              <img src="https://cdn.shopify.com/s/files/1/0015/5421/9096/t/8/assets/networka.svg?v=1693386625" id="IMG_3" alt='Seguidores Reales' />
+              <h4 id="H4_4">
+                <b>SEGUIDORES REALES</b>
+              </h4>
+          </div>
+          <div id="DIV_5">
+              <img src="https://cdn.shopify.com/s/files/1/0015/5421/9096/t/8/assets/flasha.svg?v=1693386536" id="IMG_6" alt='Inicio al Instante' />
+              <h4 id="H4_7">
+                <b>INICIO INSTANTÁNEO</b>
+              </h4>
+          </div>
+          <div id="DIV_8">
+              <img src="https://cdn.shopify.com/s/files/1/0015/5421/9096/t/8/assets/paypala.svg?v=1693386601" id="IMG_9" alt='PayPal aceptado' />
+              <h4 id="H4_10">
+                <b>ACEPTAMOS PAYPAL</b>
+              </h4>
+          </div>
+      </div>
+
 {% unless product == empty %}
 <script type="application/json" id="ProductJson-{{ section.id }}">
     {{ product | json }}
