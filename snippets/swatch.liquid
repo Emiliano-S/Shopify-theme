@@ -105,6 +105,7 @@
                 type="radio"
                 name="option-{{ option_index }}"
                 value="{{ value | escape }}"
+                data-id="{{ variant.id }}"
                 {% if forloop.first %}
                 {% unless section.settings.enable_default_variant %}
                 checked{% endunless %}
