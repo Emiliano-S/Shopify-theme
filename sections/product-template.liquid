@@ -414,12 +414,20 @@
                     <input type="text" name="properties[URL PERFIL SEGUIDORES]" id="URL PERFIL SEGUIDORES-0-0" class="spb-productdescfont spb-productoptiontextcolor spb-productoptionbackground" placeholder="URL de tu PERFIL de INSTAGRAM" maxlength="60" size="60" required="">
                   </span>
                 </div>
-              </div>          
+              </div>
               <button type="button" name="add" id="AddToCartZero" class="btn_sp btn stiky_button{% if section.settings.enable_payment_button %} dynamic_paybtn {% endif %}{% if section.settings.shake_effect_enable %} js-cartButtonPro-addToCartButton hvr-wobble-horizontal{% endif %}">
                 <span id="AddToCartText">{{ 'products.product.free_add_to_cart' | t }}</span>
               </button>
               {% else %}          
               {% assign zeroCost='' %}  
+              <div id="infiniteoptions-container">
+                <div class="TEST">
+                  <label for="URL PERFIL SEGUIDORES-0-0" class="spb-productdescfont spb-productdesctextcolor">Introduce aquí tu perfil de Instagram</label>
+                  <span>
+                    <input type="text" name="properties[URL PERFIL SEGUIDORES]" id="URL PERFIL SEGUIDORES-0-0" class="spb-productdescfont spb-productoptiontextcolor spb-productoptionbackground" placeholder="URL de tu PERFIL de INSTAGRAM" maxlength="60" size="60" required="">
+                  </span>
+                </div>
+              </div>
               <button type="button" name="add" id="AddToCart" class="btn_sp addtocart_btn stiky_button{% if section.settings.enable_payment_button %} dynamic_paybtn {% endif %}{% if section.settings.shake_effect_enable %} js-cartButtonPro-addToCartButton hvr-wobble-horizontal{% endif %}">
                 <span class="AddToCartText addtocarttext">
                   {% unless current_variant.available %}
