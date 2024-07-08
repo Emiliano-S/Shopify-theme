@@ -168,7 +168,7 @@
                     itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
                 {{ current_variant.price | money }}
               </span>
-              <span class="product-price__amount" id="ProductOption1-{{ section.id }}" content="{{ current_variant.option1 }}">
+              <span class="product-price__amount" id="ProductOption1-{{ section.id }}" itemprop="option1" content="{{ current_variant.option1 }}">
                 x{{ current_variant.option1 }}
                 <span class="important-text">{{ first_word | downcase }}</span>
               </span>
@@ -1163,46 +1163,6 @@ if((document.referrer).includes('google')) {
 }
 </script>
 
-<script>
-  let variants = {{ product.variants | json }};
-  console.log(variants);
-</script>
-
-<script>
-  // Funzione di formattazione del prezzo
-  function formatMoney(amount, format) {
-    format = format || "${{amount}}";
-    const value = (amount / 100).toFixed(2);
-    return format.replace("{{amount}}", value);
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    let variantSelector = document.querySelector('select[name="id"]');
-
-    if (variantSelector) {
-      variantSelector.addEventListener('change', function() {
-        let selectedVariant = variantSelector.options[variantSelector.selectedIndex];
-        let variantId = selectedVariant.value;
-
-        let variants = {{ product.variants | json }};
-        let currentVariant = variants.find(variant => variant.id == variantId);
-
-        // // Aggiorna il prezzo
-        // let priceElement = document.getElementById('ProductPrice-{{ section.id }}');
-        // if (priceElement) {
-        //   priceElement.innerHTML = formatMoney(currentVariant.price, "{{ shop.money_format }}");
-        // }
-
-        // Aggiorna l'option1
-        let option1Element = document.getElementById('ProductOption1-{{ section.id }}');
-        if (option1Element) {
-          option1Element.innerHTML = 'x' + currentVariant.option1 + ' <span class="important-text">{{ first_word | downcase }}</span>';
-        }
-      });
-    }
-  });
-</script>
-
 
 
 
@@ -1219,5 +1179,3 @@ window.Shoppad.apps.infiniteoptions.strings.errorMessages = window.Shoppad.apps.
 // The string
 window.Shoppad.apps.infiniteoptions.strings.errorMessages.forTextInputs = "Por favor, introduce tu URL / PERFIL / Nombre para continuar.";
 </script>
-
-
