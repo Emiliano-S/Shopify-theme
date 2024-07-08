@@ -1159,6 +1159,9 @@ if((document.referrer).includes('google')) {
 }
 </script>
 
+<script>
+  let variants = {{ product.variants | json }};
+</script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
