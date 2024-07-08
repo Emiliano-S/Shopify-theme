@@ -161,20 +161,24 @@
             {% else %}
             <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
             <s id="ComparePrice-{{ section.id }}" class="hide">{{ current_variant.compare_at_price | money }}</s>
-<span class="product-price__price product-price__price-{{ section.id }}">
-  <span class="product-price" id="ProductPrice-{{ section.id }}"
-        itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
-    {{ current_variant.price | money }}
-  </span>
-  <span class="product-price__amount" content="{{ current_variant.option1 }}" id="ProductOption1-{{ section.id }}">
-    x{{ current_variant.option1 }}
-    <span class="important-text">{{ first_word | downcase }}</span>
-  </span>
-  {% if section.settings.show_saved_amount %}
-  <span class="save_discount_pro hide">
-  </span>
-  {% endif %}
-</span>
+
+
+            <span class="product-price__price product-price__price-{{ section.id }}">
+              <span class="product-price" id="ProductPrice-{{ section.id }}"
+                    itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+                {{ current_variant.price | money }}
+              </span>
+              <span class="product-price__amount" id="ProductOption1-{{ section.id }}" content="{{ current_variant.option1 }}">
+                x{{ current_variant.option1 }}
+                <span class="important-text">{{ first_word | downcase }}</span>
+              </span>
+              {% if section.settings.show_saved_amount %}
+              <span class="save_discount_pro hide">
+              </span>
+              {% endif %}
+            </span>
+            
+
 
             {% endif %}
           </p>
@@ -1165,41 +1169,40 @@ if((document.referrer).includes('google')) {
 </script>
 
 <script>
+  // Funzione di formattazione del prezzo
+  function formatMoney(amount, format) {
+    format = format || "${{amount}}";
+    const value = (amount / 100).toFixed(2);
+    return format.replace("{{amount}}", value);
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
-    // Seleziona il selettore delle varianti e aggiungi un listener per l'evento change
     let variantSelector = document.querySelector('select[name="id"]');
-    
+
     if (variantSelector) {
       variantSelector.addEventListener('change', function() {
-        // Ottieni la variante selezionata
         let selectedVariant = variantSelector.options[variantSelector.selectedIndex];
         let variantId = selectedVariant.value;
 
-        // Trova la variante corrente
         let variants = {{ product.variants | json }};
         let currentVariant = variants.find(variant => variant.id == variantId);
-        
-        // Aggiorna il prezzo
-        let priceElement = document.getElementById('ProductPrice-{{ section.id }}');
-        priceElement.innerHTML = Shopify.formatMoney(currentVariant.price, "{{ shop.money_format }}");
+
+        // // Aggiorna il prezzo
+        // let priceElement = document.getElementById('ProductPrice-{{ section.id }}');
+        // if (priceElement) {
+        //   priceElement.innerHTML = formatMoney(currentVariant.price, "{{ shop.money_format }}");
+        // }
 
         // Aggiorna l'option1
         let option1Element = document.getElementById('ProductOption1-{{ section.id }}');
-        option1Element.innerHTML = 'x' + currentVariant.option1 + ' <span class="important-text">{{ first_word | downcase }}</span>';
+        if (option1Element) {
+          option1Element.innerHTML = 'x' + currentVariant.option1 + ' <span class="important-text">{{ first_word | downcase }}</span>';
+        }
       });
     }
-
-    // Aggiorna anche quando la pagina si carica
-    let initialVariantId = variantSelector.options[variantSelector.selectedIndex].value;
-    let initialVariant = variants.find(variant => variant.id == initialVariantId);
-    
-    let priceElement = document.getElementById('ProductPrice-{{ section.id }}');
-    priceElement.innerHTML = Shopify.formatMoney(initialVariant.price, "{{ shop.money_format }}");
-
-    let option1Element = document.getElementById('ProductOption1-{{ section.id }}');
-    option1Element.innerHTML = 'x' + initialVariant.option1 + ' <span class="important-text">{{ first_word | downcase }}</span>';
   });
 </script>
+
 
 
 
