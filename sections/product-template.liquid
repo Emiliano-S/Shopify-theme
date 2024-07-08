@@ -203,15 +203,6 @@
           product-form product-form-{{ section.id }}{% unless section.settings.show_variant_labels %} product-form--hide-variant-labels{% endunless %}{% if section.settings.enable_payment_button and product.has_only_default_variant%} product-form--payment-button-no-variants{% endif %}
           {%- endcapture %}
 
-          <div id="infiniteoptions-container">
-            <div class="TEST">
-              <label for="URL PERFIL SEGUIDORES-0-0" class="spb-productdescfont spb-productdesctextcolor">Introduce aquí tu perfil de Instagram</label>
-              <span>
-                <input type="text" name="properties[URL PERFIL SEGUIDORES]" id="URL PERFIL SEGUIDORES-0-0" class="spb-productdescfont spb-productoptiontextcolor spb-productoptionbackground" placeholder="URL de tu PERFIL de INSTAGRAM" maxlength="60" size="60" required="">
-              </span>
-            </div>
-          </div>
-
       {% form 'product', product, id: "AddToCartForm", class:form_classes, data-product-id: "{{ product.id }}", data-section: "{{ section.id }}", data-product: "{{ product | json | escape }}" %}
       
             {% if section.settings.show_quantity_selector %}
@@ -414,7 +405,14 @@
               {% if section.settings.sticky_button == 'show_progress_bar' %}
               {% include 'product-progress-bar-mobile' %}
               {% endif %}
-
+              <div id="infiniteoptions-container">
+                <div class="TEST">
+                  <label for="URL PERFIL SEGUIDORES-0-0" class="spb-productdescfont spb-productdesctextcolor">Introduce aquí tu perfil de Instagram</label>
+                  <span>
+                    <input type="text" name="properties[URL PERFIL SEGUIDORES]" id="URL PERFIL SEGUIDORES-0-0" class="spb-productdescfont spb-productoptiontextcolor spb-productoptionbackground" placeholder="URL de tu PERFIL de INSTAGRAM" maxlength="60" size="60" required="">
+                  </span>
+                </div>
+              </div>
               {% if price_var1 == 0 %}          
               <button type="button" name="add" id="AddToCartZero" class="btn_sp btn stiky_button{% if section.settings.enable_payment_button %} dynamic_paybtn {% endif %}{% if section.settings.shake_effect_enable %} js-cartButtonPro-addToCartButton hvr-wobble-horizontal{% endif %}">
                 <span id="AddToCartText">{{ 'products.product.free_add_to_cart' | t }}</span>
