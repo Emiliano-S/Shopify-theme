@@ -127,7 +127,7 @@
               </span>
               <span class="product-price__amount">
               
-                <span class="important-text">seguidores</span>
+                <span class="important-text">{{ second_word |  downcase }}</span>
               </span>
               {% if section.settings.show_saved_amount %}
               <!-- Dscount price in percentage  -->
@@ -167,8 +167,8 @@
                 {{ current_variant.price | money }}
               </span>
               <span class="product-price__amount" content="{{ current_variant.option1 }}">
-                {{ current_variant.option1 }}
-                <span class="important-text">seguidores</span>
+                x{{ current_variant.option1 }}
+                <span class="important-text">{{ second_word |  downcase }}</span>
               </span>
               {% if section.settings.show_saved_amount %}
               <span class="save_discount_pro hide">
