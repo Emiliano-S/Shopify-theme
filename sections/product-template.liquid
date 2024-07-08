@@ -109,7 +109,7 @@
         {% assign second_word = title_parts[1] %}
         
         <h1 itemprop="name" class="product-single__title heading">
-          Compra "{{ first_word | downcase }}" de "{{ second_word }}" con <strong>entrega instantánea</strong> ⚡
+          Compra {{ first_word | downcase }} de {{ second_word | downcase }} con <strong>entrega instantánea</strong> ⚡
         </h1>
 
         {% if section.settings.show_vendor %}
