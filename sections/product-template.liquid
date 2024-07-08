@@ -103,8 +103,13 @@
     <div class="grid__item grid_product medium-up--one-half">
       <div class="product-single__meta">
 
+        {% assign product_title = product.title %}
+        {% assign title_parts = product_title | split: ' ' %}
+        {% assign first_word = title_parts[0] %}
+        {% assign second_word = title_parts[1] %}
+        
         <h1 itemprop="name" class="product-single__title heading">
-          Compra seguidores de Instagram con <strong>entrega instantánea</strong> ⚡
+          Compra "{{ first_word | downcase }}" de "{{ second_word }}" con <strong>entrega instantánea</strong> ⚡
         </h1>
 
         {% if section.settings.show_vendor %}
