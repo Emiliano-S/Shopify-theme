@@ -161,21 +161,21 @@
             {% else %}
             <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
             <s id="ComparePrice-{{ section.id }}" class="hide">{{ current_variant.compare_at_price | money }}</s>
-            <span class="product-price__price product-price__price-{{ section.id }}">
-              <span class="product-price" id="ProductPrice-{{ section.id }}"
-                    itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
-                {{ current_variant.price | money }}
-              </span>
-              <span class="product-price__amount" content="{{ current_variant.option1 }}">
-                x{{ current_variant.option1 }}
-                <span class="important-text">{{ first_word |  downcase }}</span>
-              </span>
-              {% if section.settings.show_saved_amount %}
-              <span class="save_discount_pro hide">
-              </span>
-              {% endif %}
-              
-            </span>
+<span class="product-price__price product-price__price-{{ section.id }}">
+<span class="product-price" id="ProductPrice-{{ section.id }}"
+itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+{{ current_variant.price | money }}
+</span>
+<span class="product-price__amount" content="{{ current_variant.option1 }}" id="ProductOption1-{{ section.id }}">
+x{{ current_variant.option1 }}
+<span class="important-text">{{ first_word | downcase }}</span>
+</span>
+{% if section.settings.show_saved_amount %}
+<span class="save_discount_pro hide">
+</span>
+{% endif %}
+</span>
+
             {% endif %}
           </p>
           {% comment %}
@@ -1171,4 +1171,33 @@ window.Shoppad.apps.infiniteoptions.strings = window.Shoppad.apps.infiniteoption
 window.Shoppad.apps.infiniteoptions.strings.errorMessages = window.Shoppad.apps.infiniteoptions.strings.errorMessages || {}, 
 // The string
 window.Shoppad.apps.infiniteoptions.strings.errorMessages.forTextInputs = "Por favor, introduce tu URL / PERFIL / Nombre para continuar.";
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  // Seleziona il selettore delle varianti e aggiungi un listener per l'evento change
+  var variantSelector = document.querySelector('select[name="id"]');
+  
+  if (variantSelector) {
+    variantSelector.addEventListener('change', function() {
+      // Ottieni la variante selezionata
+      var selectedVariant = variantSelector.options[variantSelector.selectedIndex];
+      var variantId = selectedVariant.value;
+
+      // Trova la variante corrente
+      var variants = {{ product.variants | json }};
+      var currentVariant = variants.find(variant => variant.id == variantId);
+      
+      // Aggiorna il prezzo
+      var priceElement = document.getElementById('ProductPrice-{{ section.id }}');
+      priceElement.innerHTML = Shopify.formatMoney(currentVariant.price, "{{ shop.money_format }}");
+
+      // Aggiorna l'option1
+      var option1Element = document.getElementById('ProductOption1-{{ section.id }}');
+      option1Element.innerHTML = 'x' + currentVariant.option1 + ' <span class="important-text">{{ first_word | downcase }}</span>';
+    });
+  }
+});
+
 </script>
