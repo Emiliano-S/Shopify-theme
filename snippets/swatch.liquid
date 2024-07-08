@@ -25,6 +25,7 @@
   {% assign found_option = false %}
   {% assign is_color = false %}
   {% assign option_index = 0 %}
+  {% assign original_price = product.variants.first.price %}
 
   {% for option in product.options %}
     {% if option == swatch %}
@@ -88,6 +89,10 @@
             {% assign values = values | join: ',' %}
             {% assign values = values | append: ',' | append: value %}
             {% assign values = values | split: ',' %}
+            {% assign discount = 0 %}
+            {% if original_price > variant.price %}
+              {% assign discount = 100 | minus: variant.price | times: 100 | divided_by: original_price %}
+            {% endif %}
             <div data-value="{{ value | escape }}" class="swatch-element {% if is_color and section.settings.swatch_option == 'with_background' %}color with_bg_color {% elsif is_color and section.settings.swatch_option == 'without_background'%}color color_without_bg {% endif %}{% if is_color and section.settings.color_style == 'square_box' %}square_shape {% elsif is_color and section.settings.color_style == 'round_shape'%}round_shape {% endif %}{{ swatch }} {{ value | handle }} {% if variant.available %}available{% else %}soldout{% endif %}">
               {% if is_color and section.settings.swatch_option == 'with_background' %}
                 <div class="tooltip">{{ value }}</div>
@@ -112,7 +117,7 @@
                   <div class="swatch-price">
                     {{ value }}
                   </div>
-                  <div class="swatch-text">0% de <br> descuento</div>
+                  <div class="swatch-text">{{ discount | round: 0 }}% de <br> descuento</div>
                   <img class="crossed-out" src="{{ 'soldout.png' | asset_url }}" />
                 </label>
               {% endif %}
