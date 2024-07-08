@@ -263,12 +263,6 @@
             {% include 'swatch' with option %}
             {% endfor %} 
             </div>
-            {% endif %}
-            {% endif %} 
-            <!-- END PRODUCT SWATCH CODE IF ENABLE -->
-            {% include 'product-page-features' %}
-            <input required type="hidden" id="upsellcheckquantity" name="properties[upsellcheckquantity]">
-         {% endform %}
             <div id="infiniteoptions-container">
               <div class="TEST">
                 <label for="URL PERFIL SEGUIDORES-0-0" class="spb-productdescfont spb-productdesctextcolor">Introduce aquí tu perfil de Instagram</label>
@@ -277,7 +271,13 @@
                 </span>
               </div>
             </div>
-
+            {% endif %}
+            {% endif %} 
+            <!-- END PRODUCT SWATCH CODE IF ENABLE -->
+            {% include 'product-page-features' %}
+            <input required type="hidden" id="upsellcheckquantity" name="properties[upsellcheckquantity]">
+         {% endform %}
+  
           {% if section.settings.enable_sticky %}
 
           <style>
