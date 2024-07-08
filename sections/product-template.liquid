@@ -31,7 +31,7 @@
   {%- assign enable_zoom = section.settings.enable_zoom -%}
 
   <div class="grid product-single">
-    <div class="product-single__photos medium-up--one-half d-none">
+    <div class="product-single__photos medium-up--one-half">
       {%- assign featured_image = product.featured_image -%}
       {% for image in product.images %}
       {% capture img_id %}FeaturedImage-{{ section.id }}-{{ image.id }}{% endcapture %}
@@ -257,7 +257,7 @@
             <!-- PRODUCT SWATCH CODE IF ENABLE -->
             {% if section.settings.variant_swacth == 'two'  %}  
             {% if product.variants.size > 1 %}
-            <div class="swatch_options" style="width: 80%;">
+            <div class="swatch_options" style="width: 100%;">
             {% for option in product.options %}
             {% include 'swatch' with option %}
             {% endfor %} 
