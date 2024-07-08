@@ -543,6 +543,34 @@ x{{ current_variant.option1 }}
     </div>
 </div>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  // Seleziona il selettore delle varianti e aggiungi un listener per l'evento change
+  let variantSelector = document.querySelector('select[name="id"]');
+  console.log('VariantSelector', variantSelector);
+  if (variantSelector) {
+    variantSelector.addEventListener('change', function() {
+      // Ottieni la variante selezionata
+      let selectedVariant = variantSelector.options[variantSelector.selectedIndex];
+      let variantId = selectedVariant.value;
+
+      // Trova la variante corrente
+      let variants = {{ product.variants | json }};
+      let currentVariant = variants.find(variant => variant.id == variantId);
+      
+      // Aggiorna il prezzo
+      let priceElement = document.getElementById('ProductPrice-{{ section.id }}');
+      priceElement.innerHTML = Shopify.formatMoney(currentVariant.price, "{{ shop.money_format }}");
+
+      // Aggiorna l'option1
+      let option1Element = document.getElementById('ProductOption1-{{ section.id }}');
+      option1Element.innerHTML = 'x' + currentVariant.option1 + ' <span class="important-text">{{ first_word | downcase }}</span>';
+    });
+  }
+});
+
+</script>
+
 {% unless product == empty %}
 <script type="application/json" id="ProductJson-{{ section.id }}">
     {{ product | json }}
@@ -1171,33 +1199,4 @@ window.Shoppad.apps.infiniteoptions.strings = window.Shoppad.apps.infiniteoption
 window.Shoppad.apps.infiniteoptions.strings.errorMessages = window.Shoppad.apps.infiniteoptions.strings.errorMessages || {}, 
 // The string
 window.Shoppad.apps.infiniteoptions.strings.errorMessages.forTextInputs = "Por favor, introduce tu URL / PERFIL / Nombre para continuar.";
-</script>
-
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-  // Seleziona il selettore delle varianti e aggiungi un listener per l'evento change
-  var variantSelector = document.querySelector('select[name="id"]');
-  
-  if (variantSelector) {
-    variantSelector.addEventListener('change', function() {
-      // Ottieni la variante selezionata
-      var selectedVariant = variantSelector.options[variantSelector.selectedIndex];
-      var variantId = selectedVariant.value;
-
-      // Trova la variante corrente
-      var variants = {{ product.variants | json }};
-      var currentVariant = variants.find(variant => variant.id == variantId);
-      
-      // Aggiorna il prezzo
-      var priceElement = document.getElementById('ProductPrice-{{ section.id }}');
-      priceElement.innerHTML = Shopify.formatMoney(currentVariant.price, "{{ shop.money_format }}");
-
-      // Aggiorna l'option1
-      var option1Element = document.getElementById('ProductOption1-{{ section.id }}');
-      option1Element.innerHTML = 'x' + currentVariant.option1 + ' <span class="important-text">{{ first_word | downcase }}</span>';
-    });
-  }
-});
-
 </script>
